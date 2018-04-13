@@ -1,0 +1,9 @@
+{
+  "app": {
+    "title": "UAPI"
+  },
+  "mode": "easy",
+  "compileMode": "aot",
+  "name":"",
+  "omnibar": false
+}
