@@ -1,0 +1,33 @@
+<!-- SKY UX 2 summary component -->
+<sky-page-summary>
+  <sky-page-summary-image>
+    <sky-avatar [name]="constituent?.name"></sky-avatar>
+  </sky-page-summary-image>
+  <sky-page-summary-title>
+      <!--
+        The Elvis operator `?` tells Angular that this value may not exist yet when the view renders.
+        When dealing with asynchronous data, Angular 2 doesn't allow us to block
+        the view from rendering, and an error occurs without this conditional operator.
+       -->
+      {{constituent?.name}}
+  </sky-page-summary-title>
+  <sky-page-summary-subtitle>
+    <span>ID: </span>{{constituent?.id}}
+  </sky-page-summary-subtitle>
+  <sky-page-summary-content>
+    <p  class="well" >
+      See <a href="https://developer.sky.blackbaud.com/constituent-entity-reference#Constituent" target="_blank">Constituent</a>
+      within the Blackbaud SKY API contact reference for a full listing of properties.
+    </p>
+  </sky-page-summary-content>
+  <sky-page-summary-key-info>
+    <sky-key-info>
+      <sky-key-info-label>Type</sky-key-info-label>
+      <sky-key-info-value>{{ constituent?.type }}</sky-key-info-value>
+    </sky-key-info>
+    <sky-key-info>
+      <sky-key-info-label>lookup_id</sky-key-info-label>
+      <sky-key-info-value>{{ constituent?.lookup_id }}</sky-key-info-value>
+    </sky-key-info>
+  </sky-page-summary-key-info>
+</sky-page-summary>

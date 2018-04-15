@@ -3,67 +3,50 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireModule } from 'angularfire2';
 import { AuthService } from './shared/auth/auth.service';
-import { ProjectViewComponent } from './projects/project-view.component';
-import { DragulaService, DragulaModule } from 'ng2-dragula/ng2-dragula';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { WebStorageModule } from 'ngx-store';
 import { NgModule } from '@angular/core';
-import { ProjectFormComponent } from './projects/project-form.component';
-import { ProjectsService } from './projects/projects.service';
 import { ProfileService } from './shared/profile/profile.service';
 import { ProfileFormComponent } from './shared/profile/profile-form.component';
-import { TaskFormComponent } from './tasks/task-form.component';
-import { TasksService } from './tasks/tasks.service';
 import { SkyAppBootstrapper } from '@blackbaud/skyux-builder/runtime/bootstrapper';
-import { JTagInputModule } from 'skyux-lib-j-tags';
-(SkyAppBootstrapper as any).processBootstrapConfig = () => {
-    return new Promise((resolve, reject) => {
-        //  reject(false);
-        resolve(true);
+import { LoginModalComponent } from './shared/login/login-modal.component';
 
-    });
+(SkyAppBootstrapper as any).processBootstrapConfig = () => {
+  return new Promise((resolve, reject) => {
+    //  reject(false);
+    resolve(true);
+
+  });
 };
 
 const environment = {
-    production: false,
-    p2p: {
-        host: 'otg2017peerserver.herokuapp.com'
-    },
-    firebase: {
-        apiKey: 'AIzaSyAiHb8ByUNWBdeKZWIZyUapBMxSggLiJIg',
-        authDomain: 'otg2017-f4d23.firebaseapp.com',
-        databaseURL: 'https://otg2017-f4d23.firebaseio.com',
-        projectId: 'otg2017-f4d23',
-        storageBucket: 'otg2017-f4d23.appspot.com',
-        messagingSenderId: '131069844360'
-    }
+  production: false,
+  firebase: {
+    apiKey: 'AIzaSyBNdWA9XDRcBDGNx0LZYDyaSiCpLo4GPHQ',
+    authDomain: 'bbcon-b0197.firebaseapp.com',
+    databaseURL: 'https://bbcon-b0197.firebaseio.com',
+    projectId: 'bbcon-b0197',
+    storageBucket: 'bbcon-b0197.appspot.com',
+    messagingSenderId: '101575878803'
+  }
 };
 // Specify entry components, module-level providers, etc. here.
 @NgModule({
-    imports: [
-        AngularFireModule.initializeApp(environment.firebase),
-        AngularFireDatabaseModule,
-        AngularFirestoreModule,
-        DragulaModule,
-        FormsModule,
-        ReactiveFormsModule,
-        WebStorageModule,
-        JTagInputModule
-    ],
-    exports: [DragulaModule, JTagInputModule],
-    providers: [
-        AuthService,
-        AngularFireAuth,
-        DragulaService,
-        ProjectsService,
-        TasksService,
-        ProfileService
-    ],
-    entryComponents: [
-        TaskFormComponent,
-        ProjectFormComponent,
-        ProjectViewComponent,
-        ProfileFormComponent
-    ]
+  imports: [
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFirestoreModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  exports: [],
+  providers: [
+    AuthService,
+    AngularFireAuth,
+    ProfileService
+  ],
+  entryComponents: [
+    ProfileFormComponent,
+    LoginModalComponent
+  ]
 })
 export class AppExtrasModule { }

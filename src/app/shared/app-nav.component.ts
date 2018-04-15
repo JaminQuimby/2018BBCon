@@ -16,14 +16,6 @@ export class AppNavComponent {
     {
       name: 'Dashboard',
       path: '/dashboard'
-    },
-    {
-      name: 'Projects',
-      path: '/projects'
-    },
-    {
-      name: 'Task List',
-      path: '/tasks'
     }
   ];
   constructor(public profile: ProfileService) { }

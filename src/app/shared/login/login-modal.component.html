@@ -1,0 +1,22 @@
+<sky-modal>
+  <sky-modal-header>
+    Login
+  </sky-modal-header>
+  <sky-modal-content>
+    <div id="docs-modal-content">
+      <button (click)="login_google()" type="button">
+        <img src=" ~/assets/images/icons/btn_google_signin_normal.png" />
+      </button>
+
+
+    </div>
+  </sky-modal-content>
+  <sky-modal-footer>
+    <button type="button" class="sky-btn sky-btn-primary" (click)="instance.save('Something cool')">
+      Close
+    </button>
+    <button  type="button" class="sky-btn sky-btn-secondary" (click)="logout()" *ngIf="uid">
+      Logout
+    </button>
+  </sky-modal-footer>
+</sky-modal>

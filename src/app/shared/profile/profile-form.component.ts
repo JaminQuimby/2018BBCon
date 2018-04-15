@@ -3,8 +3,9 @@ import { UserModel } from '../user/user.model';
 import { ProfileService } from './profile.service';
 
 @Component({
-  selector: 'uapi-profile-form',
-  templateUrl: './profile-form.component.html'
+  selector: 'demo-profile-form',
+  templateUrl: './profile-form.component.html',
+  styleUrls: ['profile-form.component.scss']
 })
 
 export class ProfileFormComponent {
@@ -15,5 +16,4 @@ export class ProfileFormComponent {
       this.model = user;
     });
   }
-
 }

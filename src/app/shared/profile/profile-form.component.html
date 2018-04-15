@@ -1,14 +1,20 @@
-<div>
-    <label>
-        Display Name
-        <input type="text" [(ngModel)]="model.displayName" class="sky-form-control">
-    </label>
-    <label>
-        Email
-        <input type="text" [(ngModel)]="model.email" class="sky-form-control">
-    </label>
-    <label>
-        Uid
-        <input type="text" [(ngModel)]="model.uid" class="sky-form-control">
-    </label>
-</div>
+<sky-card>
+  <sky-card-title>Profile</sky-card-title>
+  <sky-card-content>
+
+
+    <sky-page-summary>
+      <sky-page-summary-image>
+        <sky-avatar [name]="model.displayName" [src]="model.photoURL" class="profile-center-all">
+        </sky-avatar>
+      </sky-page-summary-image>
+      <sky-page-summary-title>
+        {{model.displayName}}
+      </sky-page-summary-title>
+      <sky-page-summary-subtitle>
+        {{model.email}}
+      </sky-page-summary-subtitle>
+    </sky-page-summary>
+
+  </sky-card-content>
+</sky-card>

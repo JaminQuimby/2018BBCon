@@ -1,34 +1,33 @@
 import { Component } from '@angular/core';
-import { AuthService } from './shared/auth/auth.service';
-import { ProfileService } from './shared/profile/profile.service';
-import { UserModel } from './shared/user/user.model';
+import {
+  SkyModalService,
+  SkyModalCloseArgs
+} from '@blackbaud/skyux/dist/core';
+
+import { LoginModalComponent } from './shared/login/login-modal.component';
 
 @Component({
-  selector: 'my-home',
+  selector: 'demo-home',
   templateUrl: './home.component.html'
 })
 
 export class HomeComponent {
-  public email: string;
-  public password: string;
-  public model: UserModel;
-
   constructor(
-    private auth: AuthService,
-    public profile: ProfileService
-  ) {
-    this.profile.user$.subscribe((user) => {
-      this.model = user;
+    private modal: SkyModalService
+  ) { }
+
+  public openModal() {
+
+    const options: any = {
+      ariaDescribedBy: 'docs-modal-content'
+    };
+
+    const modalInstance = this.modal.open(LoginModalComponent, options);
+
+    modalInstance.closed.take(1).subscribe((result: SkyModalCloseArgs) => {
+      console.log(`Modal closed with reason: ${result.reason} and data: ${result.data}`);
     });
-  }
 
-  public login() {
-    this.auth.login();
-    this.email = this.password = '';
-  }
-
-  public logout() {
-    this.auth.logout();
   }
 
 }
