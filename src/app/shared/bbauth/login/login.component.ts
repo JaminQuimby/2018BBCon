@@ -1,27 +1,27 @@
 import { Component } from '@angular/core';
-import { SessionService } from '../../shared/session.service';
+import { BBSessionService } from '../bbsession.service';
 
 @Component({
-  selector: 'login',
+  selector: 'bb-login',
   template: require('./login.component.html'),
   styles: [`button {
     margin-top: 10px;
   }`]
 })
-export class LoginComponent {
+export class BbLoginComponent {
   constructor (
-    private sessionService: SessionService
+    private sessionService: BBSessionService
   ) {}
 
-  private loggedIn(): boolean {
+  public get loggedIn(): boolean {
     return this.sessionService.isAuthenticated();
   }
 
-  private login(): void {
+  public login(): void {
     this.sessionService.login();
   }
 
-  private logout(): void {
+  public logout(): void {
     this.sessionService.logout();
   }
 }

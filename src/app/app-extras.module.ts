@@ -4,11 +4,18 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireModule } from 'angularfire2';
 import { AuthService } from './shared/auth/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
+import { NgModule, Injector } from '@angular/core';
 import { ProfileService } from './shared/profile/profile.service';
 import { ProfileFormComponent } from './shared/profile/profile-form.component';
+import { MetricBlockWidgetComponent } from './shared/metric-block-widget/metric-block-widget.component';
+
 import { SkyAppBootstrapper } from '@blackbaud/skyux-builder/runtime/bootstrapper';
 import { LoginModalComponent } from './shared/login/login-modal.component';
+
+// Blackbaud Integration
+import { BBHomeComponent } from './shared/bbauth/home/home.component';
+import { BBSessionService } from './shared/bbauth/bbsession.service';
+import { BBSettingsService } from './shared/bbauth/bbsettings.service';
 
 (SkyAppBootstrapper as any).processBootstrapConfig = () => {
   return new Promise((resolve, reject) => {
@@ -29,24 +36,40 @@ const environment = {
     messagingSenderId: '101575878803'
   }
 };
-// Specify entry components, module-level providers, etc. here.
+
+const services = [
+  AuthService,
+  AngularFireAuth,
+  ProfileService,
+  BBSessionService,
+  BBSettingsService
+];
+
+const modules = [
+  AngularFireModule.initializeApp(environment.firebase),
+  AngularFireDatabaseModule,
+  AngularFirestoreModule,
+  FormsModule,
+  ReactiveFormsModule
+];
+
+const components = [
+  ProfileFormComponent,
+  MetricBlockWidgetComponent,
+  LoginModalComponent,
+  BBHomeComponent
+];
+
 @NgModule({
-  imports: [
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule,
-    AngularFirestoreModule,
-    FormsModule,
-    ReactiveFormsModule
-  ],
+  imports: modules,
   exports: [],
-  providers: [
-    AuthService,
-    AngularFireAuth,
-    ProfileService
-  ],
-  entryComponents: [
-    ProfileFormComponent,
-    LoginModalComponent
-  ]
+  providers: services,
+  entryComponents: components
 })
-export class AppExtrasModule { }
+export class AppExtrasModule {
+  public static injector: Injector;
+
+  constructor(private injector: Injector) {
+    AppExtrasModule.injector = this.injector;
+  }
+}

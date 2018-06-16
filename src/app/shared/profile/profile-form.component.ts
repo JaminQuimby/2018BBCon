@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { UserModel } from '../user/user.model';
-import { ProfileService } from './profile.service';
+import { Profile } from './profile.service';
 
 @Component({
   selector: 'demo-profile-form',
@@ -9,11 +9,7 @@ import { ProfileService } from './profile.service';
 })
 
 export class ProfileFormComponent {
+  @Profile()
   public model: UserModel;
-  constructor(
-    public profile: ProfileService) {
-    this.profile.user$.subscribe((user) => {
-      this.model = user;
-    });
-  }
+
 }

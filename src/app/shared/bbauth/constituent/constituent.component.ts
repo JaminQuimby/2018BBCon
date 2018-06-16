@@ -1,27 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
 import { ConstituentService } from './constituent.service';
-import { SessionService } from '../../shared/session.service';
+import { BBSessionService } from '../bbsession.service';
 
 @Component({
-  selector: 'constituent',
+  selector: 'bb-constituent',
   template: require('./constituent.component.html'),
   providers: [ConstituentService]
 })
 export class ConstituentComponent implements OnInit {
-  private constituent_id: number = 280;
+  private constituentId: number = 1098;
   public constituent: any;
+  public gift: any;
 
   constructor(
     private constituentService: ConstituentService,
-    private sessionService: SessionService,
-  ) {}
+    private sessionService: BBSessionService
+  ) { }
 
-  public getData(): void {
-    this.constituentService.getById(this.constituent_id)
-      .then((data: any) => this.constituent = data);
-  };
+  public async getData() {
+    this.constituent = await this.constituentService.getById(this.constituentId);
+    this.gift = await this.constituentService.getLatestGift(this.constituentId);
+  }
 
   public ngOnInit(): void {
     this.getData();
@@ -29,10 +28,5 @@ export class ConstituentComponent implements OnInit {
 
   public logout(): void {
     this.sessionService.logout();
-  }
-
-  private handleError(error: any): void {
-    console.log('ERROR:', error.message || error);
-    Promise.resolve(error);
   }
 }

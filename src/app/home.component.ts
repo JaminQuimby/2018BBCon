@@ -18,15 +18,11 @@ export class HomeComponent {
 
   public openModal() {
 
-    const options: any = {
-      ariaDescribedBy: 'docs-modal-content'
-    };
-
+    const options: any = { ariaDescribedBy: 'docs-modal-content' };
     const modalInstance = this.modal.open(LoginModalComponent, options);
 
-    modalInstance.closed.take(1).subscribe((result: SkyModalCloseArgs) => {
-      console.log(`Modal closed with reason: ${result.reason} and data: ${result.data}`);
-    });
+    modalInstance.closed.take(1).subscribe((result: SkyModalCloseArgs) =>
+      console.log(`Modal closed with reason: ${result.reason} and data: ${result.data}`));
 
   }
 

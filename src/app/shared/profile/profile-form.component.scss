@@ -1,3 +1,43 @@
-profile-center-all {
-  align-content: center;
+.profile-form-container {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.profile-form-profile-info {
+  height: 160px;
+  background-color: white;
+  padding: 25px;
+  display: flex;
+  flex: 1;
+}
+
+.profile-form-widgets {
+  background-color: white;
+  padding: 5px;
+  display: flex;
+  flex: 1;
+  max-width: 150px;
+  justify-content: flex-end;
+}
+
+.profile-form-name-block {
+  flex: auto
+}
+
+.profile-form-avatar {
+  flex: none;
+  margin-right: 35px;
+}
+
+.profile-form-display-name {
+  font-weight: bold;
+  font-size: 26px;
+  line-height: 1.5;
+}
+
+// .profile-form-email {}
+.profile-form-edit-profile {
+  margin-top: 15px;
+  font-weight: bold;
 }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { SkyModalInstance } from '@blackbaud/skyux/dist/core';
 import { AuthService } from '../../shared/auth/auth.service';
-import { ProfileService } from '../../shared/profile/profile.service';
+import { Profile } from '../../shared/profile/profile.service';
 import { UserModel } from '../../shared/user/user.model';
 
 @Component({
@@ -12,17 +12,13 @@ import { UserModel } from '../../shared/user/user.model';
 export class LoginModalComponent {
   public email: string;
   public password: string;
+  @Profile()
   public model: UserModel;
 
   constructor(
     public instance: SkyModalInstance,
-    private auth: AuthService,
-    public profile: ProfileService) {
-
-    this.profile.user$.subscribe((user) => {
-      this.model = user;
-    });
-  }
+    private auth: AuthService
+  ) { }
 
   public login_google() {
     this.auth.login_google();
@@ -33,7 +29,7 @@ export class LoginModalComponent {
     this.auth.logout();
   }
 
-  public get uid(){
+  public get uid() {
     return this.model.uid;
   }
 }

@@ -7,6 +7,8 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "noEmitHelpers": false,
+    "importHelpers": true,
     "typeRoots": [
       "../node_modules/@types"
     ],

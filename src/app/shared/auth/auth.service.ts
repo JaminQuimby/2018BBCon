@@ -5,67 +5,59 @@ import * as firebase from 'firebase/app';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { UserModel } from '../user/user.model';
+import { AuthUserModel } from './auth.model';
 
 @Injectable()
 export class AuthService {
   private user: Observable<firebase.User>;
-  public user$: BehaviorSubject<any> = new BehaviorSubject([]);
-  public org$: BehaviorSubject<any> = new BehaviorSubject([]);
+  public user$: BehaviorSubject<AuthUserModel> = new BehaviorSubject({});
 
   constructor(
     private firebaseAuth: AngularFireAuth,
     private db: AngularFirestore
   ) {
-    firebase.firestore().enablePersistence()
-      .then(function () {
-        // Initialize Cloud Firestore through firebase
-        firebase.firestore();
-      })
-      .catch(function (err) {
-        if (err.code === 'failed-precondition') {
-          console.log(err.code);
-        } else if (err.code === 'unimplemented') {
-          console.log(err.code);
-        }
-      });
+    this.initFirebase();
     this.user = firebaseAuth.authState;
-    this.user.subscribe(user => {
-      if (user) {
-        // Set user as subject
-        this.user$.next(user);
-      }
-    });
+    this.user.subscribe(userObject => (userObject && this.user$.next(userObject)));
   }
 
-  public login_google() {
+  public async login_google() {
     let provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope('https://www.googleapis.com/auth/plus.login');
-    this.firebaseAuth.auth.signInWithRedirect(provider)
-      .then((result) => console.log('Signin result', result))
-      .catch((error) => console.error('Sigin error', error));
+    try {
+      let result = await this.firebaseAuth.auth.signInWithRedirect(provider);
+      console.log('Sign-in result', result);
+    } catch (error) {
+      console.error('Sig-in error', error);
+    }
   }
   public logout() {
-    this.firebaseAuth
-      .auth
-      .signOut();
+    this.firebaseAuth.auth.signOut();
     let user: UserModel = new UserModel();
     this.user$.next(user);
   }
-  public lookupUserBy(userUid: string): UserModel {
-    let user = this.db.collection(`/users`).doc(userUid).ref;
-    user.get().then(function (doc) {
-      if (doc.exists) {
-        console.log('user data:', doc.data());
-        return doc.data();
-      } else {
-        console.log('No such user');
-        return undefined;
-      }
-    }).catch(function (error) {
+  public async lookupUserBy(userUid: string): Promise<UserModel> {
+    try {
+      let user = await this.db.collection(`/users`).doc(userUid).ref.get();
+      console.log('user data:', user.exists && user.data());
+      return user.exists && { ...new UserModel, ...user.data() };
+    } catch (error) {
       console.log('Error getting user:', error);
       return undefined;
-    });
-    return undefined;
+    }
   }
 
+  private async initFirebase() {
+    await firebase.firestore().enablePersistence();
+    try {
+      // Initialize Cloud Firestore through firebase
+      firebase.firestore();
+    } catch (error) {
+      if (error.code === 'failed-precondition') {
+        console.log(error.code);
+      } else if (error.code === 'unimplemented') {
+        console.log(error.code);
+      }
+    }
+  }
 }

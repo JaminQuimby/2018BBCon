@@ -5,4 +5,5 @@ export class UserModel {
     public photoURL: string;
     public uid: string;
     public role: string;
+    public emailVerified: boolean;
 }

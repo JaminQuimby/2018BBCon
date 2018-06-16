@@ -1,20 +1,21 @@
-<sky-card>
-  <sky-card-title>Profile</sky-card-title>
-  <sky-card-content>
+<div class="profile-form-container">
+  <div class="profile-form-profile-info" *ngIf="model">
+    <div class="profile-form-avatar">
+      <sky-avatar [name]="model?.displayName" [src]="model?.photoURL" class="profile-center-all">
+      </sky-avatar>
+    </div>
+    <div class="profile-form-name-block">
+      <div class="profile-form-display-name"> {{model?.displayName}}</div>
+      <div class="profile-form-email"> {{model?.email}}</div>
 
+      <div class="profile-form-edit-profile">
+        <a href="#">View/edit Profile</a>
+      </div>
+    </div>
+  </div>
 
-    <sky-page-summary>
-      <sky-page-summary-image>
-        <sky-avatar [name]="model.displayName" [src]="model.photoURL" class="profile-center-all">
-        </sky-avatar>
-      </sky-page-summary-image>
-      <sky-page-summary-title>
-        {{model.displayName}}
-      </sky-page-summary-title>
-      <sky-page-summary-subtitle>
-        {{model.email}}
-      </sky-page-summary-subtitle>
-    </sky-page-summary>
-
-  </sky-card-content>
-</sky-card>
+  <div class="profile-form-widgets">
+    <metric-block-widget metric="20" dimension="hours" message="to your cause" linkName="next events" linkAddress="#"></metric-block-widget>
+    <metric-block-widget metric="10" dimension="dollars" message="to your charity" linkName="receipts" linkAddress="#"></metric-block-widget>
+  </div>
+</div>
