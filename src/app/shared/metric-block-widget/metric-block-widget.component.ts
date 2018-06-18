@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-
+import { MetricModel } from './metric-block-widget';
 @Component({
   selector: 'metric-block-widget',
   templateUrl: './metric-block-widget.component.html',
@@ -7,18 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class MetricBlockWidgetComponent {
   @Input()
-  public metric: string = '0';
-
-  @Input()
-  public dimension: string;
-
-  @Input()
-  public message: string;
-
-  @Input()
-  public linkName: string;
-
-  @Input()
-  public linkAddress: string;
-
+  public metricModel: MetricModel;
 }
