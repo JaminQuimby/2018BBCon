@@ -44,43 +44,21 @@ export function Profile(): PropertyDecorator {
     ];
     let profileService: ProfileService;
     HOOKS.forEach((hook) => {
-      constructor.prototype[hook] = () => {
-        profileService = AppExtrasModule.injector.get(ProfileService);
-        profileService.context$.subscribe((model) => {
-          Object.defineProperty(target, propertyKey, {
-            configurable: false,
-            get: () => model
-          });
-        });
-      };
-    });
-    return profileService;
-  };
-}
-
-export function decorateClass(target: any, propertyKey: string) {
-  // call service from here to delegate logging
-  let constructor = target.constructor;
-  const HOOKS = [
-    'ngOnInit',
-    'ngOnDestroy'
-  ];
-  let profileService: ProfileService;
-  HOOKS.forEach((hook) => {
-    constructor.prototype[hook] = function () {
       if (hook === 'ngOnInit') {
-        profileService = AppExtrasModule.injector.get(ProfileService);
-        profileService.context$.subscribe((model) => {
-          Object.defineProperty(target, propertyKey, {
-            configurable: false,
-            get: () => model
+        constructor.prototype[hook] = () => {
+          profileService = AppExtrasModule.injector.get(ProfileService);
+          profileService.context$.subscribe((model) => {
+            Object.defineProperty(target, propertyKey, {
+              configurable: false,
+              get: () => model
+            });
           });
-        });
+        };
       }
       if (hook === 'ngOnDestroy') {
         profileService.context$.unsubscribe();
       }
-    };
-  });
-  return profileService;
+    });
+    return profileService;
+  };
 }
