@@ -12,9 +12,7 @@ import { LoginModalComponent } from './shared/login/login-modal.component';
 })
 
 export class HomeComponent {
-  constructor(
-    private modal: SkyModalService
-  ) { }
+  constructor(private modal: SkyModalService) { }
 
   public openModal() {
 

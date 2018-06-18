@@ -21,6 +21,4 @@ export class MetricBlockWidgetComponent {
   @Input()
   public linkAddress: string;
 
-  constructor() { }
-
 }
