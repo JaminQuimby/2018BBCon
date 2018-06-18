@@ -25,4 +25,4 @@ dist
 # OS specific files
 .DS_Store
 bbsettings.service.ts
-.skyuxconfig.json
+skyuxconfig.json
