@@ -1,0 +1,25 @@
+<sky-modal>
+  <sky-modal-header>
+    Profile
+  </sky-modal-header>
+  <sky-modal-content  [formGroup]="profileForm">
+    <form>
+      <label class="sky-control-label">Email</label>
+      <input class="sky-form-control" type="text" formControlName="email">
+      <label class="sky-control-label">Name</label>
+      <input class="sky-form-control" type="text" formControlName="displayName">
+      <label class="sky-control-label">Company</label>
+      <input class="sky-form-control" type="text" formControlName="company">
+      <label class="sky-control-label">Phone </label>
+      <input class="sky-form-control" type="text" formControlName="phone">
+    </form>
+  </sky-modal-content>
+  <sky-modal-footer>
+    <button type="button" class="sky-btn sky-btn-primary" (click)="save()">
+      Save
+    </button>
+    <button type="button" class="sky-btn sky-btn-primary" (click)="close()">
+      Close
+    </button>
+  </sky-modal-footer>
+</sky-modal>

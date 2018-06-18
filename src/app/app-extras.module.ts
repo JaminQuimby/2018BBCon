@@ -1,16 +1,21 @@
+// Firebase Integration
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+
+// App
 import { AuthService } from './shared/auth/auth.service';
+import { LoginModalComponent } from './shared/login/login-modal.component';
+import { MetricBlockWidgetComponent } from './shared/metric-block-widget/metric-block-widget.component';
+import { ProfileComponent } from './shared/profile/profile.component';
+import { ProfileFormComponent } from './shared/profile/profile-form.component';
+import { ProfileService } from './shared/profile/profile.service';
+
+// Core
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule, Injector } from '@angular/core';
-import { ProfileService } from './shared/profile/profile.service';
-import { ProfileComponent } from './shared/profile/profile.component';
-import { MetricBlockWidgetComponent } from './shared/metric-block-widget/metric-block-widget.component';
-
 import { SkyAppBootstrapper } from '@blackbaud/skyux-builder/runtime/bootstrapper';
-import { LoginModalComponent } from './shared/login/login-modal.component';
 
 // Blackbaud Integration
 import { BBHomeComponent } from './shared/bbauth/home/home.component';
@@ -38,33 +43,34 @@ const environment = {
 };
 
 const services = [
-  AuthService,
   AngularFireAuth,
-  ProfileService,
+  AuthService,
   BBSessionService,
-  BBSettingsService
+  BBSettingsService,
+  ProfileService
 ];
 
 const modules = [
-  AngularFireModule.initializeApp(environment.firebase),
   AngularFireDatabaseModule,
+  AngularFireModule.initializeApp(environment.firebase),
   AngularFirestoreModule,
   FormsModule,
   ReactiveFormsModule
 ];
 
 const components = [
-  ProfileComponent,
-  MetricBlockWidgetComponent,
+  BBHomeComponent,
   LoginModalComponent,
-  BBHomeComponent
+  MetricBlockWidgetComponent,
+  ProfileComponent,
+  ProfileFormComponent
 ];
 
 @NgModule({
-  imports: modules,
+  entryComponents: components,
   exports: [],
-  providers: services,
-  entryComponents: components
+  imports: modules,
+  providers: services
 })
 export class AppExtrasModule {
   public static injector: Injector;
