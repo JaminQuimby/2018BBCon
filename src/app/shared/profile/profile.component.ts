@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UserModel } from '../user/user.model';
+import { ProfileModel } from './profile-model';
 import { Profile } from './profile.service';
 
 @Component({
@@ -10,6 +10,8 @@ import { Profile } from './profile.service';
 
 export class ProfileComponent {
   @Profile()
-  public model: UserModel;
-
+  private profile: ProfileModel;
+  public get displayName() { return this.profile.displayName; }
+  public get email() { return this.profile.email; }
+  public get photoURL() { return this.profile.photoURL; }
 }

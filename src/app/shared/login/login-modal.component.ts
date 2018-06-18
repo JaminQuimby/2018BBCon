@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { SkyModalInstance } from '@blackbaud/skyux/dist/core';
 import { AuthService } from '../../shared/auth/auth.service';
 import { Profile } from '../../shared/profile/profile.service';
-import { UserModel } from '../../shared/user/user.model';
+import { ProfileModel } from '../../shared/profile/profile-model';
 
 @Component({
   selector: 'demo-login-modal',
@@ -13,10 +13,10 @@ export class LoginModalComponent {
   public email: string;
   public password: string;
   @Profile()
-  public model: UserModel;
+  private profile: ProfileModel;
 
   constructor(
-    public instance: SkyModalInstance,
+    private instance: SkyModalInstance,
     private auth: AuthService
   ) { }
 
@@ -25,11 +25,15 @@ export class LoginModalComponent {
     this.email = this.password = '';
   }
 
+  public save() {
+    this.instance.save();
+  }
+
   public logout() {
     this.auth.logout();
   }
 
   public get uid() {
-    return this.model.uid;
+    return this.profile.uid;
   }
 }

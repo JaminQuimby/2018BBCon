@@ -1,12 +1,12 @@
 <div class="profile-form-container">
-  <div class="profile-form-profile-info" *ngIf="model">
+  <div class="profile-form-profile-info" *ngIf="profile">
     <div class="profile-form-avatar">
-      <sky-avatar [name]="model?.displayName" [src]="model?.photoURL" class="profile-center-all">
+      <sky-avatar [name]="displayName" [src]="photoURL" class="profile-center-all">
       </sky-avatar>
     </div>
     <div class="profile-form-name-block">
-      <div class="profile-form-display-name"> {{model?.displayName}}</div>
-      <div class="profile-form-email"> {{model?.email}}</div>
+      <div class="profile-form-display-name"> {{displayName}}</div>
+      <div class="profile-form-email"> {{email}}</div>
 
       <div class="profile-form-edit-profile">
         <a href="#">View/edit Profile</a>
