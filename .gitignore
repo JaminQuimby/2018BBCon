@@ -22,7 +22,8 @@ jspm_packages
 # SKY UX build directory
 dist
 
+skyuxconfig.json
+
 # OS specific files
 .DS_Store
 bbsettings.service.ts
-skyuxconfig.json

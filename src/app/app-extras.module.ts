@@ -6,7 +6,7 @@ import { AuthService } from './shared/auth/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule, Injector } from '@angular/core';
 import { ProfileService } from './shared/profile/profile.service';
-import { ProfileFormComponent } from './shared/profile/profile-form.component';
+import { ProfileFormComponent } from './shared/profile/profile.component';
 import { MetricBlockWidgetComponent } from './shared/metric-block-widget/metric-block-widget.component';
 
 import { SkyAppBootstrapper } from '@blackbaud/skyux-builder/runtime/bootstrapper';
