@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { UserModel } from '../user/user.model';
 import { Profile } from './profile.service';
 
@@ -8,7 +8,7 @@ import { Profile } from './profile.service';
   styleUrls: ['profile-form.component.scss']
 })
 
-export class ProfileFormComponent {
+export class ProfileComponent {
   @Profile()
   public model: UserModel;
 
