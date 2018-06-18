@@ -1,5 +1,5 @@
 <div class="profile-form-container">
-  <div class="profile-form-profile-info" *ngIf="profile">
+  <div class="profile-form-profile-info" *ngIf="photoURL">
     <div class="profile-form-avatar">
       <sky-avatar [name]="displayName" [src]="photoURL" class="profile-center-all">
       </sky-avatar>
@@ -15,7 +15,7 @@
   </div>
 
   <div class="profile-form-widgets">
-    <metric-block-widget metric="20" dimension="hours" message="to your cause" linkName="next events" linkAddress="#"></metric-block-widget>
-    <metric-block-widget metric="10" dimension="dollars" message="to your charity" linkName="receipts" linkAddress="#"></metric-block-widget>
+    <metric-block-widget metricModel="metricModel"></metric-block-widget>
+    <metric-block-widget metricModel="metricModel"></metric-block-widget>
   </div>
 </div>

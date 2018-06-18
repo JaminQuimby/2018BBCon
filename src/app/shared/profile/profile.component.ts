@@ -4,8 +4,8 @@ import { Profile } from './profile.service';
 import { MetricModel } from '../metric-block-widget/metric-block-widget';
 @Component({
   selector: 'demo-profile',
-  templateUrl: './profile-form.component.html',
-  styleUrls: ['profile-form.component.scss']
+  templateUrl: './profile.component.html',
+  styleUrls: ['profile.component.scss']
 })
 
 export class ProfileComponent {

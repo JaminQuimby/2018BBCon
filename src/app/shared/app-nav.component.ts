@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { Profile } from '../shared/profile/profile.service';
-import { ProfileModel } from '../shared/profile/profile-model';
 
 @Component({
   selector: 'app-nav',
@@ -9,8 +7,6 @@ import { ProfileModel } from '../shared/profile/profile-model';
 })
 
 export class AppNavComponent {
-  @Profile()
-  private profile: ProfileModel;
   public nav = [
     {
       name: 'Home',
@@ -21,8 +17,4 @@ export class AppNavComponent {
       path: '/dashboard'
     }
   ];
-
-  public displayName() { return this.profile.displayName; }
-  public photoURL() { return this.profile.photoURL; }
-
 }

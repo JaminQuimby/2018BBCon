@@ -4,7 +4,7 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
 import * as firebase from 'firebase/app';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import { UserModel } from '../user/user.model';
+import { ProfileModel } from '../profile/profile-model';
 import { AuthUserModel } from './auth.model';
 
 @Injectable()
@@ -33,14 +33,14 @@ export class AuthService {
   }
   public logout() {
     this.firebaseAuth.auth.signOut();
-    let user: UserModel = new UserModel();
+    let user: ProfileModel = new ProfileModel();
     this.user$.next(user);
   }
-  public async lookupUserBy(userUid: string): Promise<UserModel> {
+  public async lookupUserBy(userUid: string): Promise<ProfileModel> {
     try {
       let user = await this.db.collection(`/users`).doc(userUid).ref.get();
       console.log('user data:', user.exists && user.data());
-      return user.exists && { ...new UserModel, ...user.data() };
+      return user.exists && { ...new ProfileModel, ...user.data() };
     } catch (error) {
       console.log('Error getting user:', error);
       return undefined;
