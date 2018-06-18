@@ -68,13 +68,18 @@ export function decorateClass(target: any, propertyKey: string) {
   let profileService: ProfileService;
   HOOKS.forEach((hook) => {
     constructor.prototype[hook] = function () {
-      profileService = AppExtrasModule.injector.get(ProfileService);
-      profileService.context$.subscribe((model) => {
-        Object.defineProperty(target, propertyKey, {
-          configurable: false,
-          get: () => model
+      if (hook === 'ngOnInit') {
+        profileService = AppExtrasModule.injector.get(ProfileService);
+        profileService.context$.subscribe((model) => {
+          Object.defineProperty(target, propertyKey, {
+            configurable: false,
+            get: () => model
+          });
         });
-      });
+      }
+      if (hook === 'ngOnDestroy') {
+        profileService.context$.unsubscribe();
+      }
     };
   });
   return profileService;
