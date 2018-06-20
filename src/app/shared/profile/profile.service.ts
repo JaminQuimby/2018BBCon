@@ -56,7 +56,9 @@ export function Profile(): PropertyDecorator {
         };
       }
       if (hook === 'ngOnDestroy') {
-        profileService.context$.unsubscribe();
+        if (profileService.context$) {
+          profileService.context$.unsubscribe();
+        }
       }
     });
     return profileService;

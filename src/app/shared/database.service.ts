@@ -2,9 +2,10 @@ import { Injectable, Inject } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { AuthService } from '../shared/auth/auth.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { AppExtrasModule } from '../app-extras.module';
 
 @Injectable()
-export class DatabasesService {
+export class DatabaseService {
   public databasesCollection: AngularFirestoreCollection<any>;
   public database$: BehaviorSubject<Array<any>> = new BehaviorSubject([]);
   private db: AngularFirestore;
@@ -12,16 +13,17 @@ export class DatabasesService {
   private auth: AuthService;
 
   constructor(private url: string) { }
- /*
- * *
- * *
- * *
- * * FILE USE FOR EXAMPLE
- * *
- * *
- * *
- * */
-  public start() {
+  /*
+  * *
+  * *
+  * *
+  * * FILE USE FOR EXAMPLE
+  * *
+  * *
+  * *
+  * */
+  public bootstrap(collection: string) {
+    console.log(collection);
     /*
         this.auth.org$.subscribe((org: any) => {
           let collectionUrl = `/organizations/${org.id}/${this.url}/`;
@@ -71,4 +73,34 @@ export class DatabasesService {
       this.database$.next(database.reverse());
     }
     */
+}
+
+export function Container(location: string): PropertyDecorator {
+  return function (target: any, propertyKey: string) {
+    // call service from here to delegate logging
+    let constructor = target.constructor;
+    const HOOKS = [
+      'ngOnInit',
+      'ngOnDestroy'
+    ];
+    let databaseService: DatabaseService;
+    HOOKS.forEach((hook) => {
+      if (hook === 'ngOnInit') {
+        constructor.prototype[hook] = () => {
+          databaseService = AppExtrasModule.injector.get(DatabaseService);
+          databaseService.bootstrap(location);
+          databaseService.database$.subscribe((model) => {
+            Object.defineProperty(target, propertyKey, {
+              configurable: false,
+              get: () => model
+            });
+          });
+        };
+      }
+      if (hook === 'ngOnDestroy') {
+        databaseService.database$.unsubscribe();
+      }
+    });
+    return databaseService;
+  };
 }

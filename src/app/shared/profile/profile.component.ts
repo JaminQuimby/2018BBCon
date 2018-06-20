@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { ProfileModel } from './profile-model';
 import { Profile } from './profile.service';
 import { MetricModel } from '../metric-block-widget/metric-block-widget';
+
+import { Container } from '../database.service';
 import {
   SkyModalService,
   SkyModalCloseArgs
@@ -18,6 +20,7 @@ import { ProfileFormComponent } from './profile-form.component';
 export class ProfileComponent {
   @Profile()
   private profile: ProfileModel;
+
 
   constructor(private modal: SkyModalService) { }
 
@@ -38,7 +41,6 @@ export class ProfileComponent {
 
   public openModal(type: string) {
     const context = new ProfileFormContext();
-    context.valueA = 'Hello';
 
     const options: any = {
       providers: [{ provide: ProfileFormContext, useValue: context }],
@@ -51,10 +53,5 @@ export class ProfileComponent {
       console.log(`Modal closed with reason: ${result.reason} and data: ${result.data}`);
     });
 
-    modalInstance.helpOpened.subscribe((helpKey: string) => {
-      context.eventMessage = `
-        Modal header help was invoked with the following help key: ${helpKey}
-      `;
-    });
   }
 }
