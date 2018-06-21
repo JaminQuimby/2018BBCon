@@ -10,7 +10,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   templateUrl: './profile-form.component.html'
 })
 export class ProfileFormComponent implements OnInit {
-  @Profile()
+  // @Profile()
   private profile: ProfileModel;
   public profileForm: FormGroup;
   constructor(
@@ -22,12 +22,12 @@ export class ProfileFormComponent implements OnInit {
   public ngOnInit(): void {
     this.profileForm = this.fb.group({
       displayName: ['', [Validators.required, Validators.minLength(5)]],
-      company: ['', Validators.required],
+      organization: ['', Validators.required],
       phone: [''],
       email: ['']
     });
-  //  this.profileForm.setValue({ ...this.context, ... this.profile });
-    console.log(this.profile);
+    this.profileForm.patchValue({ ...this.context, ... this.profile });
+    console.log('set profile', this.profile);
   }
 
   public get profileContext() {

@@ -21,6 +21,8 @@ export class ProfileComponent {
   @Profile()
   private profile: ProfileModel;
 
+  @Container('users')
+  private container: ProfileModel;
 
   constructor(private modal: SkyModalService) { }
 

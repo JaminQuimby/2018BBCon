@@ -45,7 +45,9 @@ export function Profile(): PropertyDecorator {
     let profileService: ProfileService;
     HOOKS.forEach((hook) => {
       if (hook === 'ngOnInit') {
+        const selfOnInit = constructor.prototype[hook];
         constructor.prototype[hook] = () => {
+          if (typeof selfOnInit === 'function') { selfOnInit(); }
           profileService = AppExtrasModule.injector.get(ProfileService);
           profileService.context$.subscribe((model) => {
             Object.defineProperty(target, propertyKey, {
@@ -56,7 +58,9 @@ export function Profile(): PropertyDecorator {
         };
       }
       if (hook === 'ngOnDestroy') {
-        if (profileService.context$) {
+        const selfOnDestory = constructor.prototype[hook];
+        if (profileService) {
+          if (typeof selfOnDestory === 'function') { selfOnDestory(); }
           profileService.context$.unsubscribe();
         }
       }

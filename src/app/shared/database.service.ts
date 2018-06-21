@@ -3,6 +3,9 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
 import { AuthService } from '../shared/auth/auth.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { AppExtrasModule } from '../app-extras.module';
+import { Profile } from './profile/profile.service';
+import { ProfileModel } from './profile/profile-model';
+import { Data } from '@angular/router';
 
 @Injectable()
 export class DatabaseService {
@@ -12,7 +15,9 @@ export class DatabaseService {
   @Inject(AuthService)
   private auth: AuthService;
 
-  constructor(private url: string) { }
+  @Profile()
+  private profile: ProfileModel;
+  constructor() { }
   /*
   * *
   * *
@@ -24,6 +29,7 @@ export class DatabaseService {
   * */
   public bootstrap(collection: string) {
     console.log(collection);
+    console.log(this.profile);
     /*
         this.auth.org$.subscribe((org: any) => {
           let collectionUrl = `/organizations/${org.id}/${this.url}/`;
@@ -74,7 +80,6 @@ export class DatabaseService {
     }
     */
 }
-
 export function Container(location: string): PropertyDecorator {
   return function (target: any, propertyKey: string) {
     // call service from here to delegate logging
@@ -86,9 +91,10 @@ export function Container(location: string): PropertyDecorator {
     let databaseService: DatabaseService;
     HOOKS.forEach((hook) => {
       if (hook === 'ngOnInit') {
+        const selfOnInit = constructor.prototype[hook];
         constructor.prototype[hook] = () => {
+          if (typeof selfOnInit === 'function') { selfOnInit(); }
           databaseService = AppExtrasModule.injector.get(DatabaseService);
-          databaseService.bootstrap(location);
           databaseService.database$.subscribe((model) => {
             Object.defineProperty(target, propertyKey, {
               configurable: false,
@@ -98,7 +104,11 @@ export function Container(location: string): PropertyDecorator {
         };
       }
       if (hook === 'ngOnDestroy') {
-        databaseService.database$.unsubscribe();
+        const selfOnDestory = constructor.prototype[hook];
+        if (databaseService) {
+          if (typeof selfOnDestory === 'function') { selfOnDestory(); }
+          databaseService.database$.unsubscribe();
+        }
       }
     });
     return databaseService;

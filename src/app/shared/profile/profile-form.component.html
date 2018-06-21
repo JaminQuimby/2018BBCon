@@ -2,16 +2,16 @@
   <sky-modal-header>
     Profile
   </sky-modal-header>
-  <sky-modal-content  [formGroup]="profileForm">
-    <form>
+  <sky-modal-content>
+    <form [formGroup]="profileForm">
       <label class="sky-control-label">Email</label>
-      <input class="sky-form-control" type="text" formControlName="email">
+      <input class="sky-form-control" type="text" formControlName="email" autocomplete="email">
       <label class="sky-control-label">Name</label>
-      <input class="sky-form-control" type="text" formControlName="displayName">
-      <label class="sky-control-label">Company</label>
-      <input class="sky-form-control" type="text" formControlName="company">
+      <input class="sky-form-control" type="text" formControlName="displayName" autocomplete="name">
+      <label class="sky-control-label">Organization</label>
+      <input class="sky-form-control" type="text" formControlName="organization" autocomplete="organization">
       <label class="sky-control-label">Phone </label>
-      <input class="sky-form-control" type="text" formControlName="phone">
+      <input class="sky-form-control" type="text" formControlName="phone" autocomplete="tel">
     </form>
   </sky-modal-content>
   <sky-modal-footer>

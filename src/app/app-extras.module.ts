@@ -11,6 +11,7 @@ import { MetricBlockWidgetComponent } from './shared/metric-block-widget/metric-
 import { ProfileComponent } from './shared/profile/profile.component';
 import { ProfileFormComponent } from './shared/profile/profile-form.component';
 import { ProfileService } from './shared/profile/profile.service';
+import { DatabaseService } from './shared/database.service';
 
 // Core
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -47,7 +48,8 @@ const services = [
   AuthService,
   BBSessionService,
   BBSettingsService,
-  ProfileService
+  ProfileService,
+  DatabaseService
 ];
 
 const modules = [
