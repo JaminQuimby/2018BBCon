@@ -11,11 +11,11 @@
       <label class="sky-control-label">Organization</label>
       <input class="sky-form-control" type="text" formControlName="organization" autocomplete="organization">
       <label class="sky-control-label">Phone </label>
-      <input class="sky-form-control" type="text" formControlName="phone" autocomplete="tel">
+      <input class="sky-form-control" type="text" formControlName="phoneNumber" autocomplete="tel">
     </form>
   </sky-modal-content>
   <sky-modal-footer>
-    <button type="button" class="sky-btn sky-btn-primary" (click)="save()">
+    <button type="button" (click)="save(profileForm)" [disabled]="profileForm.invalid" class="sky-btn sky-btn-primary">
       Save
     </button>
     <button type="button" class="sky-btn sky-btn-primary" (click)="close()">

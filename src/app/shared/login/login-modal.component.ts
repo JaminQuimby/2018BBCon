@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { SkyModalInstance } from '@blackbaud/skyux/dist/core';
 import { AuthService } from '../../shared/auth/auth.service';
-import { Profile } from '../../shared/profile/profile.service';
 import { ProfileModel } from '../../shared/profile/profile-model';
+import { Container } from '../database.service';
 
 @Component({
   selector: 'demo-login-modal',
@@ -12,8 +12,9 @@ import { ProfileModel } from '../../shared/profile/profile-model';
 export class LoginModalComponent {
   public email: string;
   public password: string;
-  @Profile()
-  private profile: ProfileModel;
+
+  @Container(`users`)
+  private profile: ProfileModel[];
 
   constructor(
     private instance: SkyModalInstance,
@@ -34,6 +35,6 @@ export class LoginModalComponent {
   }
 
   public get uid() {
-    return this.profile.uid;
+    return this.profile[0].uid;
   }
 }

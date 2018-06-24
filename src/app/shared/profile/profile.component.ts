@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ProfileModel } from './profile-model';
-import { Profile } from './profile.service';
 import { MetricModel } from '../metric-block-widget/metric-block-widget';
 
 import { Container } from '../database.service';
@@ -18,17 +17,14 @@ import { ProfileFormComponent } from './profile-form.component';
 })
 
 export class ProfileComponent {
-  @Profile()
-  private profile: ProfileModel;
-
-  @Container('users')
-  private container: ProfileModel;
+  @Container(`users`)
+  private profile: ProfileModel[];
 
   constructor(private modal: SkyModalService) { }
 
-  public get displayName() { return this.profile.displayName; }
-  public get email() { return this.profile.email; }
-  public get photoURL() { return this.profile.photoURL; }
+  public get displayName() { return this.profile[0] && this.profile[0].displayName; }
+  public get email() { return this.profile[0] && this.profile[0].email; }
+  public get photoURL() { return this.profile[0] && this.profile[0].photoURL; }
   public get metricModel(): MetricModel {
     return {
       metric: '100',
@@ -43,16 +39,19 @@ export class ProfileComponent {
 
   public openModal(type: string) {
     const context = new ProfileFormContext();
-
     const options: any = {
-      providers: [{ provide: ProfileFormContext, useValue: context }],
+      providers: [{ provide: ProfileFormContext, useValue: { ...context, ...this.profile[0] } }],
       size: 'large'
     };
 
     const modalInstance = this.modal.open(ProfileFormComponent, options);
 
     modalInstance.closed.subscribe((result: SkyModalCloseArgs) => {
-      console.log(`Modal closed with reason: ${result.reason} and data: ${result.data}`);
+      if (result.reason === 'save') {
+        console.log('save', result.data);
+        this.profile = result.data;
+      }
+      console.log(`Modal closed with reason: ${result.reason} and data: ${JSON.stringify(result.data)}`);
     });
 
   }

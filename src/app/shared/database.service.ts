@@ -1,50 +1,30 @@
 import { Injectable, Inject } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
-import { AuthService } from '../shared/auth/auth.service';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { AppExtrasModule } from '../app-extras.module';
-import { Profile } from './profile/profile.service';
-import { ProfileModel } from './profile/profile-model';
-import { Data } from '@angular/router';
 
 @Injectable()
 export class DatabaseService {
   public databasesCollection: AngularFirestoreCollection<any>;
+  public databasesDocument: AngularFirestoreDocument<{}>;
   public database$: BehaviorSubject<Array<any>> = new BehaviorSubject([]);
-  private db: AngularFirestore;
-  @Inject(AuthService)
-  private auth: AuthService;
 
-  @Profile()
-  private profile: ProfileModel;
-  constructor() { }
-  /*
-  * *
-  * *
-  * *
-  * * FILE USE FOR EXAMPLE
-  * *
-  * *
-  * *
-  * */
-  public bootstrap(collection: string) {
-    console.log(collection);
-    console.log(this.profile);
-    /*
-        this.auth.org$.subscribe((org: any) => {
-          let collectionUrl = `/organizations/${org.id}/${this.url}/`;
-          this.databasesCollection = this.db.collection(collectionUrl);
-          this.databasesCollection
-            .snapshotChanges().map(actions => {
-              return actions.map(action => {
-                const data = action.payload.doc.data();
-                const id = action.payload.doc.id;
-                return { id, ...data };
-              });
-            }).subscribe((data) => (data.length > 0 && this.updateView(data)));
-        });
-    */
+  constructor(private db: AngularFirestore) { }
+
+  public bootstrap(collection: string, doc?: string) {
+    if (collection) {
+      this.databasesCollection = this.db.collection(`/${collection}/`);
+      this.databasesCollection
+        .snapshotChanges().map(actions => {
+          return actions.map(action => {
+            const data = action.payload.doc.data();
+            const id = action.payload.doc.id;
+            return { id, ...data };
+          });
+        }).subscribe((data) => (data.length > 0 && this.updateView(data)));
+    }
   }
+
   public database() {
     return this.database$;
   }
@@ -66,21 +46,15 @@ export class DatabaseService {
   }
 
   private mutations(database: any) {
-    let tags: Array<string> = [];
-    if (database.tags) {
-      database.tags.toString().split(',')
-        .forEach((tag: any) => (tags.push(tag)));
-    }
-    database.tags = tags;
     return database;
   }
-  /*
-    private updateView(database: Array<any>) {
-      this.database$.next(database.reverse());
-    }
-    */
+
+  private updateView(database: Array<any>) {
+    this.database$.next(database.reverse());
+  }
+
 }
-export function Container(location: string): PropertyDecorator {
+export function Container(collection: string, doc?: string): PropertyDecorator {
   return function (target: any, propertyKey: string) {
     // call service from here to delegate logging
     let constructor = target.constructor;
@@ -93,14 +67,23 @@ export function Container(location: string): PropertyDecorator {
       if (hook === 'ngOnInit') {
         const selfOnInit = constructor.prototype[hook];
         constructor.prototype[hook] = () => {
-          if (typeof selfOnInit === 'function') { selfOnInit(); }
           databaseService = AppExtrasModule.injector.get(DatabaseService);
+          collection = collection && collection.replace('$uid$', sessionStorage.getItem('uid'));
+          doc = doc && doc.replace('$uid$', sessionStorage.getItem('uid'));
+          databaseService.bootstrap(collection, doc);
           databaseService.database$.subscribe((model) => {
+            console.log('database subscribe', model);
             Object.defineProperty(target, propertyKey, {
-              configurable: false,
-              get: () => model
+              configurable: true,
+              enumerable: true,
+              get: () => model,
+              set: (newData) => {
+                databaseService.save(newData);
+                databaseService.database$.next(newData);
+              }
             });
           });
+          if (typeof selfOnInit === 'function') { selfOnInit(); }
         };
       }
       if (hook === 'ngOnDestroy') {

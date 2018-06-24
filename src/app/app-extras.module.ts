@@ -10,7 +10,6 @@ import { LoginModalComponent } from './shared/login/login-modal.component';
 import { MetricBlockWidgetComponent } from './shared/metric-block-widget/metric-block-widget.component';
 import { ProfileComponent } from './shared/profile/profile.component';
 import { ProfileFormComponent } from './shared/profile/profile-form.component';
-import { ProfileService } from './shared/profile/profile.service';
 import { DatabaseService } from './shared/database.service';
 
 // Core
@@ -48,7 +47,6 @@ const services = [
   AuthService,
   BBSessionService,
   BBSettingsService,
-  ProfileService,
   DatabaseService
 ];
 

@@ -40,6 +40,7 @@ export class AuthService {
     try {
       let user = await this.db.collection(`/users`).doc(userUid).ref.get();
       console.log('user data:', user.exists && user.data());
+      sessionStorage.setItem('uid', user.data().uid);
       return user.exists && { ...new ProfileModel, ...user.data() };
     } catch (error) {
       console.log('Error getting user:', error);

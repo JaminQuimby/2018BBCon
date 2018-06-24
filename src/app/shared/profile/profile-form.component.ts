@@ -1,42 +1,35 @@
 import { Component, OnInit } from '@angular/core';
 import { SkyModalInstance } from '@blackbaud/skyux/dist/core';
 import { ProfileFormContext } from './profile-form.context';
-import { Profile } from './profile.service';
-import { ProfileModel } from './profile-model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ProfileModel } from './profile-model';
 
 @Component({
   selector: 'demo-profile-form',
   templateUrl: './profile-form.component.html'
 })
 export class ProfileFormComponent implements OnInit {
-  // @Profile()
-  private profile: ProfileModel;
   public profileForm: FormGroup;
   constructor(
     private context: ProfileFormContext,
-    public fb: FormBuilder,
-    public instance: SkyModalInstance
+    private fb: FormBuilder,
+    private instance: SkyModalInstance
   ) { }
 
   public ngOnInit(): void {
     this.profileForm = this.fb.group({
       displayName: ['', [Validators.required, Validators.minLength(5)]],
       organization: ['', Validators.required],
-      phone: [''],
+      phoneNumber: [''],
       email: ['']
     });
-    this.profileForm.patchValue({ ...this.context, ... this.profile });
-    console.log('set profile', this.profile);
+    this.profileForm.patchValue(this.context);
   }
 
-  public get profileContext() {
-    return this.context;
+  public save(newValues: FormGroup) {
+    this.instance.save({ ...this.context, ...newValues.value });
   }
 
-  public save() {
-    this.instance.save(this.context);
-  }
   public close() {
     this.instance.close();
   }
