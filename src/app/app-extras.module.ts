@@ -6,11 +6,13 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 // App
 import { AuthService } from './shared/auth/auth.service';
+import { DatabaseService } from './shared/database.service';
+import { DonateComponent } from './donate/donate.component';
+import { DonateFormComponent } from './donate/donate-form.component';
 import { LoginModalComponent } from './shared/login/login-modal.component';
 import { MetricBlockWidgetComponent } from './shared/metric-block-widget/metric-block-widget.component';
 import { ProfileComponent } from './shared/profile/profile.component';
 import { ProfileFormComponent } from './shared/profile/profile-form.component';
-import { DatabaseService } from './shared/database.service';
 
 // Core
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -60,6 +62,8 @@ const modules = [
 
 const components = [
   BBHomeComponent,
+  DonateComponent,
+  DonateFormComponent,
   LoginModalComponent,
   MetricBlockWidgetComponent,
   ProfileComponent,

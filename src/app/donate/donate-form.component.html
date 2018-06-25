@@ -1,0 +1,29 @@
+<sky-modal>
+  <sky-modal-header>
+    Profile
+  </sky-modal-header>
+  <sky-modal-content>
+    <form [formGroup]="donationForm">
+      <label class="sky-control-label">Metric Type</label>
+      <input class="sky-form-control" type="text" formControlName="metricPrefix">
+      <label class="sky-control-label">Metric</label>
+      <input class="sky-form-control" type="text" formControlName="metric">
+      <label class="sky-control-label">Dimension</label>
+      <input class="sky-form-control" type="text" formControlName="dimension">
+      <label class="sky-control-label">Message</label>
+      <input class="sky-form-control" type="text" formControlName="message">
+      <label class="sky-control-label">Link Name</label>
+      <input class="sky-form-control" type="text" formControlName="linkName">
+      <label class="sky-control-label">Link Address</label>
+      <input class="sky-form-control" type="text" formControlName="linkAddress">
+    </form>
+  </sky-modal-content>
+  <sky-modal-footer>
+    <button type="button" (click)="save(donationForm)" [disabled]="donationForm.invalid" class="sky-btn sky-btn-primary">
+      Save
+    </button>
+    <button type="button" class="sky-btn sky-btn-primary" (click)="close()">
+      Close
+    </button>
+  </sky-modal-footer>
+</sky-modal>

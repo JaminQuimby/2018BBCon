@@ -6,22 +6,31 @@ import { AppExtrasModule } from '../app-extras.module';
 @Injectable()
 export class DatabaseService {
   public databasesCollection: AngularFirestoreCollection<any>;
+  public databaseDocument: AngularFirestoreDocument<any>;
   public databasesDocument: AngularFirestoreDocument<{}>;
   public database$: BehaviorSubject<Array<any>> = new BehaviorSubject([]);
 
   constructor(private db: AngularFirestore) { }
 
-  public bootstrap(collection: string, doc?: string) {
+  public bootstrap(collection: string, ref?: string) {
     if (collection) {
       this.databasesCollection = this.db.collection(`/${collection}/`);
-      this.databasesCollection
-        .snapshotChanges().map(actions => {
+      if (ref) {
+        this.databaseDocument = this.databasesCollection.doc(ref);
+        this.databaseDocument.snapshotChanges().map(action => {
+          const data = action.payload.data();
+          const id = action.payload.id;
+          return { id, ...data };
+        }).subscribe((data) => (data.id && this.updateView([data])));
+      } else {
+        this.databasesCollection.snapshotChanges().map(actions => {
           return actions.map(action => {
             const data = action.payload.doc.data();
             const id = action.payload.doc.id;
             return { id, ...data };
           });
         }).subscribe((data) => (data.length > 0 && this.updateView(data)));
+      }
     }
   }
 
@@ -54,7 +63,7 @@ export class DatabaseService {
   }
 
 }
-export function Container(collection: string, doc?: string): PropertyDecorator {
+export function Container(collection: string, docRef?: string): PropertyDecorator {
   return function (target: any, propertyKey: string) {
     // call service from here to delegate logging
     let constructor = target.constructor;
@@ -69,8 +78,8 @@ export function Container(collection: string, doc?: string): PropertyDecorator {
         constructor.prototype[hook] = () => {
           databaseService = AppExtrasModule.injector.get(DatabaseService);
           collection = collection && collection.replace('$uid$', sessionStorage.getItem('uid'));
-          doc = doc && doc.replace('$uid$', sessionStorage.getItem('uid'));
-          databaseService.bootstrap(collection, doc);
+          docRef = docRef && docRef.replace('$uid$', sessionStorage.getItem('uid'));
+          databaseService.bootstrap(collection, docRef);
           databaseService.database$.subscribe((model) => {
             console.log('database subscribe', model);
             Object.defineProperty(target, propertyKey, {

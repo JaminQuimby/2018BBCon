@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { SkyModalInstance } from '@blackbaud/skyux/dist/core';
 import { ProfileFormContext } from './profile-form.context';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ProfileModel } from './profile-model';
 
 @Component({
   selector: 'demo-profile-form',

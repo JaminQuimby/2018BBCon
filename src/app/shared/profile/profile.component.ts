@@ -17,14 +17,10 @@ import { ProfileFormComponent } from './profile-form.component';
 })
 
 export class ProfileComponent {
-  @Container(`users`)
+  @Container(`users`, sessionStorage.getItem('uid'))
   private profile: ProfileModel[];
 
   constructor(private modal: SkyModalService) { }
-
-  public get displayName() { return this.profile[0] && this.profile[0].displayName; }
-  public get email() { return this.profile[0] && this.profile[0].email; }
-  public get photoURL() { return this.profile[0] && this.profile[0].photoURL; }
   public get metricModel(): MetricModel {
     return {
       metric: '100',
@@ -36,6 +32,9 @@ export class ProfileComponent {
 
     };
   }
+  public get displayName() { return this.profile[0] && this.profile[0].displayName; }
+  public get email() { return this.profile[0] && this.profile[0].email; }
+  public get photoURL() { return this.profile[0] && this.profile[0].photoURL; }
 
   public openModal(type: string) {
     const context = new ProfileFormContext();

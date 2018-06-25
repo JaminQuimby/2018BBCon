@@ -35,6 +35,6 @@ export class LoginModalComponent {
   }
 
   public get uid() {
-    return this.profile[0].uid;
+    return sessionStorage.getItem('uid');
   }
 }
