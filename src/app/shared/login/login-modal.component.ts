@@ -1,7 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { SkyModalInstance } from '@blackbaud/skyux/dist/core';
 import { AuthService } from '../auth/auth.service';
-import { Container } from '../database.service';
 
 @Component({
   selector: 'demo-login-modal',

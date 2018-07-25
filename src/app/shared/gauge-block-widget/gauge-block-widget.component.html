@@ -1,0 +1,14 @@
+<div class="gbw-container" *ngIf="gauge.value > 0">
+  <ngx-gauge
+  size="140"
+  [max]='gauge.max'
+  [min]='gauge.min'
+  thick='4'
+  type="arch"
+  cap="round"
+  foregroundColor="rgb(11,116,178)"
+  [value]="gauge.value"
+  [label]="gauge.label"
+  [append]="gauge.append"></ngx-gauge>
+  <div class="gbw-share-button"><a href>share goal</a></div>
+</div>

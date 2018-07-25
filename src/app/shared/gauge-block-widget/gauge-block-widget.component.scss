@@ -1,0 +1,21 @@
+.gbw-container {
+  width: 150px;
+  height: 150px;
+  border-left: 1px dotted #ccc;
+  justify-content: center;
+  padding-left: 6px;
+  overflow: hidden;
+}
+
+.gbw-share-button {
+  position: relative;
+  bottom: 25px;
+  text-align: center;
+}
+
+:host ::ng-deep .reading-label {
+  font-weight: 400;
+  font-size: 20px !important;
+  color: #282b31;
+  font-family: "Blackbaud Sans Condensed", "Helvetica Neue Condensed", "Arial Narrow";
+}

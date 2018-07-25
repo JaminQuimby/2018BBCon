@@ -5,26 +5,26 @@ export class SocialGoodContext {
   public background: string;
   public id?: string;
   public organization: string;
-  public gauge?: SocialGoodGauge;
 }
 
 export class SocialGoodTiles {
-  public description: string;
+  public description?: string;
   public link: string;
   public linkName?: string = 'more info';
   public title: string;
-  public id?: number;
+  public gauge?: SocialGoodGauge;
 }
 
 export class SocialGoodActions {
   public icon: string;
   public link: string;
   public linkName?: string = 'volunteer';
-  public id?: number;
 }
 
 export class SocialGoodGauge {
-  public type: 'full' | 'semi' | 'arch';
+  public min: number = 0;
+  public max: number = 100;
+  public type: string;
   public value: number;
   public append: string;
   public label: string;

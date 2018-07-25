@@ -22,11 +22,17 @@
   display: block;
 }
 
+.social-good-title {
+  text-align: center;
+}
+
 .social-good-action-linkName {
   text-align: center;
 }
 
 .social-good-action-button button {
+  width: 50px;
+  text-align: center;
   border-radius: 50%;
   padding: 15px;
   border: 1px solid #0973B2;

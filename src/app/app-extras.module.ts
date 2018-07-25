@@ -11,12 +11,13 @@ import { SocialGoodComponent } from './social-good/social-good.component';
 import { SocialGoodFormComponent } from './social-good/social-good-form.component';
 import { LoginModalComponent } from './shared/login/login-modal.component';
 import { MetricBlockWidgetComponent } from './shared/metric-block-widget/metric-block-widget.component';
+import { GaugeBlockWidgetComponent } from './shared/gauge-block-widget/gauge-block-widget.component';
 import { ProfileComponent } from './shared/profile/profile.component';
 import { ProfileFormComponent } from './shared/profile/profile-form.component';
 import { SocialGoodCardComponent } from './social-good/social-good-card.component';
 
 // Core
-import { BrowserModule }  from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule, Injector } from '@angular/core';
 import { SkyAppBootstrapper } from '@blackbaud/skyux-builder/runtime/bootstrapper';
@@ -80,6 +81,7 @@ const components = [
   SocialGoodCardComponent,
   LoginModalComponent,
   MetricBlockWidgetComponent,
+  GaugeBlockWidgetComponent,
   ProfileComponent,
   ProfileFormComponent
 ];

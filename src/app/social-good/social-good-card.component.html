@@ -13,13 +13,15 @@
 
     <span *ngFor="let tile of tiles">
       <sky-card size="small" [selectable]="showCheckbox">
-        <sky-card-title>{{tile.title}}</sky-card-title>
+        <sky-card-title><div class="social-good-title">{{tile.title}}</div></sky-card-title>
         <sky-card-content>
           <span *ngIf="tile.description">{{tile.description}}</span>
           <span *ngIf="tile.gauge">
             <ngx-gauge
-            max='800'
-            thick='6'
+            [max]='tile.gauge.max'
+            [min]='tile.gauge.min'
+            thick='12'
+            cap="round"
             [type]="tile.gauge.type"
             [value]="tile.gauge.value"
             [label]="tile.gauge.label"

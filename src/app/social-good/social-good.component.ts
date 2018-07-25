@@ -21,7 +21,7 @@ export class SocialGoodComponent {
 
   public somePlace() {
     const socialGood = {
-      id: 'E19JFkaIL9nIpvoXgDbr',
+      id: '6R3LMkeTeRW1iD0SqQsw',
       actions: [{
         id: 0,
         icon: 'fa-users',
@@ -29,38 +29,39 @@ export class SocialGoodComponent {
         linkName: 'volunteer'
       }, {
         id: 1,
-        icon: 'fa-gift',
+        icon: 'fa-money',
         link: '#',
-        linkName: 'bones'
+        linkName: 'donate'
       }],
-      tiles: [{
-        id: 0,
-        description: 'Bark, bark, bark! Biscuits are important, the most beneficial treat of the day. Please send us biscuits. Weeee.',
-        link: '#',
-        linkName: 'give a dog a biscuit',
-        title: 'Bark! low on biscuits!'
-      },
-      {
-        id: 1,
-        description: `Do you like dogs? Drop by the shelter at any time to walk a furry friend.
-        What better way to spend a lunch then with a snack and exersize.`,
-        link: '#',
-        linkName: 'volunteer',
-        title: 'Dog walkers needed.'
-      }, {
-        id: 2,
-        gauge: {
-          label: '2018 Walk-a-thon',
-          type: 'arch',
-          value: 432,
-          append: 'miles'
+      tiles: [
+        {
+          id: 2,
+          gauge: {
+            min: 0,
+            max: 4000,
+            label: 'campaign',
+            type: 'arch',
+            value: 2430,
+            append: 'dollar'
+          },
+          link: '#',
+          linkName: 'donate to this fund',
+          title: '2018 Scholarships Fund',
+          image: 'https://imgur.com/aWAsWXt'
+        }, {
+          description: 'A gift to the Ontario 4-H Foundation is a gift for the future of 4-H in Ontario. ',
+          link: '#',
+          linkName: 'Donate',
+          title: 'Make an impact'
         },
-        link: '#',
-        linkName: 'join us',
-        title: '2018 Walk-a-thon!'
-      }],
-      organization: 'give a dog a biscuit. org',
-      title: 'My title'
+        {
+          description: `4-H is one of the nation's longest standing positive youth development organizations.
+        Each year, over 6000 youth benefit from the mentorship!`,
+          link: '#',
+          linkName: 'volunteer',
+          title: 'Volunteers Needed!'
+        }],
+      organization: '4H Ontario'
     };
     this.socialGood = socialGood;
   }

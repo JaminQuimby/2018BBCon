@@ -40,7 +40,7 @@ export class VolunteerBlockService {
       console.warn('there are no volunteers reset MetaMask');
       this.setVolunteerBlock({ dimension: 'hours', metric: 1 });
     } else {
-      // this.setVolunteerBlock({ dimension: 'hours', metric: 1 });
+      // this.setVolunteerBlock({ dimension: 'hours', metric: 30 });
       this.volunteer = await this.contract.methods.getVolunteer(this.account).call({ 'from': this.account });
       console.log('testing await volunteers', this.volunteer, 'contract', this.contract);
     }

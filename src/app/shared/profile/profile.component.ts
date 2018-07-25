@@ -3,6 +3,7 @@ import {
 } from '@angular/core';
 import { ProfileModel } from './profile-model';
 import { MetricModel } from '../metric-block-widget/metric-block-widget.model';
+import { GaugeModel } from '../gauge-block-widget/gauge-block-widget.model';
 import { VolunteerBlockService } from '../../blockchain/volunteer.block.service';
 import { DonationBlockService } from '../../blockchain/donation.block.service';
 import { BlockchainService } from '../../blockchain/blockchain.service';
@@ -50,6 +51,17 @@ export class ProfileComponent {
   public get displayName() { return this.profile[0].displayName; }
   public get email() { return this.profile[0].email; }
   public get photoURL() { return this.profile[0].photoURL; }
+
+  public get goalModel(): GaugeModel {
+    return {
+      ...new GaugeModel(), ...{
+        max: 40,
+        value: this.volunteer.metric,
+        append: 'hours',
+        label: 'graduation'
+      }
+    };
+  }
   public get volunteerModel(): MetricModel {
     return {
       metric: this.volunteer.metric,
