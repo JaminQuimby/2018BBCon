@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
-import * as firebase from 'firebase/app';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import * as firebase from 'firebase';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Observable } from 'rxjs/Observable';
 import { ProfileModel } from '../profile/profile-model';
 import { AuthUserModel } from './auth.model';
@@ -10,15 +10,22 @@ import { AuthUserModel } from './auth.model';
 @Injectable()
 export class AuthService {
   private user: Observable<firebase.User>;
-  public user$: BehaviorSubject<AuthUserModel> = new BehaviorSubject({});
+  public user$: ReplaySubject<AuthUserModel> = new ReplaySubject(1);
 
   constructor(
     private firebaseAuth: AngularFireAuth,
     private db: AngularFirestore
   ) {
+
     this.initFirebase();
     this.user = firebaseAuth.authState;
-    this.user.subscribe(userObject => (userObject && this.user$.next(userObject)));
+    this.user.subscribe(async (userObject) => {
+      if (userObject) {
+        const uid = userObject.uid;
+        const user = await this.lookupUserBy(uid);
+        this.user$.next(user);
+      }
+    });
   }
 
   public async login_google() {
@@ -39,8 +46,8 @@ export class AuthService {
   public async lookupUserBy(userUid: string): Promise<ProfileModel> {
     try {
       let user = await this.db.collection(`/users`).doc(userUid).ref.get();
-      console.log('user data:', user.exists && user.data());
-      sessionStorage.setItem('uid', user.data().uid);
+      // console.log('user data:', user.exists && user.data());
+      // this.user$.next(user.data().uid);
       return user.exists && { ...new ProfileModel, ...user.data() };
     } catch (error) {
       console.log('Error getting user:', error);
@@ -49,10 +56,12 @@ export class AuthService {
   }
 
   private async initFirebase() {
-    await firebase.firestore().enablePersistence();
     try {
+
       // Initialize Cloud Firestore through firebase
-      firebase.firestore();
+      // this.db.firestore.settings({ timestampsInSnapshots: true });
+      // this.db.firestore.enablePersistence();
+      // firebase.firestore();
     } catch (error) {
       if (error.code === 'failed-precondition') {
         console.log(error.code);

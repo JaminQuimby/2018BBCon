@@ -11,7 +11,5 @@ export class DashboardComponent {
 
   constructor(
     private readonly assetsService: SkyAppAssetsService) {
-    const urlTest = this.assetsService.getUrl('styles/tinycontent.css');
-    console.log(urlTest);
   }
 }

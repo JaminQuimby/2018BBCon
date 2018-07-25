@@ -22,7 +22,7 @@ export class ConstituentService {
     return this.constituentData(id, `${this.url}${id}`);
   }
 
-  public getLatestGift(id: number): Promise<any> {
+  public getLatestVolunteer(id: number): Promise<any> {
     return this.constituentData(id, `${this.url}${id}/givingsummary/latest`);
   }
 

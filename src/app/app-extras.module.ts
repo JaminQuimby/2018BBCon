@@ -2,27 +2,33 @@
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFirestoreModule, AngularFirestore } from 'angularfire2/firestore';
 
 // App
 import { AuthService } from './shared/auth/auth.service';
 import { DatabaseService } from './shared/database.service';
-import { DonateComponent } from './donate/donate.component';
-import { DonateFormComponent } from './donate/donate-form.component';
+import { SocialGoodComponent } from './social-good/social-good.component';
+import { SocialGoodFormComponent } from './social-good/social-good-form.component';
 import { LoginModalComponent } from './shared/login/login-modal.component';
 import { MetricBlockWidgetComponent } from './shared/metric-block-widget/metric-block-widget.component';
 import { ProfileComponent } from './shared/profile/profile.component';
 import { ProfileFormComponent } from './shared/profile/profile-form.component';
+import { SocialGoodCardComponent } from './social-good/social-good-card.component';
 
 // Core
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgModule, Injector } from '@angular/core';
+import { NgModule, Injector, ReflectiveInjector, Inject } from '@angular/core';
 import { SkyAppBootstrapper } from '@blackbaud/skyux-builder/runtime/bootstrapper';
 
 // Blackbaud Integration
 import { BBHomeComponent } from './shared/bbauth/home/home.component';
 import { BBSessionService } from './shared/bbauth/bbsession.service';
 import { BBSettingsService } from './shared/bbauth/bbsettings.service';
+
+// Blockchain Intergration
+import { BlockchainService } from './blockchain/blockchain.service';
+import { VolunteerBlockService } from './blockchain/volunteer.block.service';
+import { DonationBlockService } from './blockchain/donation.block.service';
 
 (SkyAppBootstrapper as any).processBootstrapConfig = () => {
   return new Promise((resolve, reject) => {
@@ -47,6 +53,9 @@ const environment = {
 const services = [
   AngularFireAuth,
   AuthService,
+  BlockchainService,
+  DonationBlockService,
+  VolunteerBlockService,
   BBSessionService,
   BBSettingsService,
   DatabaseService
@@ -62,8 +71,9 @@ const modules = [
 
 const components = [
   BBHomeComponent,
-  DonateComponent,
-  DonateFormComponent,
+  SocialGoodComponent,
+  SocialGoodFormComponent,
+  SocialGoodCardComponent,
   LoginModalComponent,
   MetricBlockWidgetComponent,
   ProfileComponent,
@@ -78,8 +88,10 @@ const components = [
 })
 export class AppExtrasModule {
   public static injector: Injector;
-
-  constructor(private injector: Injector) {
+  constructor(private injector: Injector, private db: AngularFirestore) {
+    this.db.firestore.settings({ timestampsInSnapshots: true });
+    this.db.firestore.enablePersistence();
     AppExtrasModule.injector = this.injector;
+
   }
 }

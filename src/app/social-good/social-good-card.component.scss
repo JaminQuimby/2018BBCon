@@ -1,0 +1,53 @@
+.social-good-container {
+  padding: 25px;
+}
+
+.social-good-project {
+  background-color: #DBD9D5;
+  width: 100%;
+  display: flex;
+}
+
+.social-good-container h1 {
+  padding-bottom: 0px;
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+.social-good-join-button {
+  margin-top: auto;
+  margin-bottom: auto;
+  padding: 10px;
+  flex-direction: column;
+  display: block;
+}
+
+.social-good-join-button button {
+  border-radius: 50%;
+  padding: 15px;
+  border: 1px solid #0973B2;
+  color: #0973B2;
+  padding-left: 17px;
+  padding-right: 17px;
+  margin: auto;
+}
+
+.social-good-cards {
+  padding: 25px;
+  padding-left: 0px;
+}
+
+.social-good-banner {
+  align-content: center;
+  background-size: cover;
+  height: 300px;
+  width: 290px;
+}
+
+.social-good-banner h2 {
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 20px;
+  text-shadow: -2px 0 #333, 0 2px #333, 2px 0 #333, 0 -2px #333;
+}

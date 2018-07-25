@@ -4,17 +4,17 @@ import { MetricModel } from '../shared/metric-block-widget/metric-block-widget.m
 import { SkyModalInstance } from '@blackbaud/skyux/dist/core';
 
 @Component({
-  selector: 'demo-donate-form',
-  templateUrl: './donate-form.component.html',
-  styleUrls: ['./donate-form.component.scss']
+  selector: 'demo-social-good-form',
+  templateUrl: './social-good-form.component.html',
+  styleUrls: ['./social-good-form.component.scss']
 })
-export class DonateFormComponent implements OnInit {
-  public donateForm: FormGroup;
+export class SocialGoodFormComponent implements OnInit {
+  public socialGoodForm: FormGroup;
   constructor(private context: MetricModel,
     private fb: FormBuilder,
     private instance: SkyModalInstance) { }
   public ngOnInit(): void {
-    this.donateForm = this.fb.group({
+    this.socialGoodForm = this.fb.group({
       metric: ['', [Validators.required]],
       metricPrefix: ['', Validators.required],
       dimension: [''],
@@ -22,7 +22,7 @@ export class DonateFormComponent implements OnInit {
       linkAddress: [''],
       linkName: ['']
     });
-    this.donateForm.patchValue(this.context);
+    this.socialGoodForm.patchValue(this.context);
   }
 
   public save(newValues: FormGroup) {

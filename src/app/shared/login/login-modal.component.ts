@@ -1,20 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { SkyModalInstance } from '@blackbaud/skyux/dist/core';
-import { AuthService } from '../../shared/auth/auth.service';
-import { ProfileModel } from '../../shared/profile/profile-model';
+import { AuthService } from '../auth/auth.service';
 import { Container } from '../database.service';
 
 @Component({
   selector: 'demo-login-modal',
   templateUrl: './login-modal.component.html',
-  styleUrls: ['login-modal.component.scss']
+  styleUrls: ['login-modal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginModalComponent {
   public email: string;
   public password: string;
-
-  @Container(`users`)
-  private profile: ProfileModel[];
 
   constructor(
     private instance: SkyModalInstance,
@@ -34,7 +31,4 @@ export class LoginModalComponent {
     this.auth.logout();
   }
 
-  public get uid() {
-    return sessionStorage.getItem('uid');
-  }
 }

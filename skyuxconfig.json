@@ -3,6 +3,14 @@
     "title": "UAPI"
   },
   "appSettings": {
+    "blockchain": {
+      "provider": "http://localhost:7545",
+      "contracts": {
+        "donation": "0x100168b4323036253dc0ba9f67a7a6d801b32e9a",
+        "volunteer": "0x0399720fef6f38ef34952e48d95caba870f93c9a",
+        "event": ""
+      }
+    },
     "firebase": {
       "apiKey": "AIzaSyBNdWA9XDRcBDGNx0LZYDyaSiCpLo4GPHQ",
       "authDomain": "bbcon-b0197.firebaseapp.com",

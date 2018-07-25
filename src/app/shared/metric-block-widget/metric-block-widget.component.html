@@ -1,8 +1,8 @@
-<div class="mbw-container">
+<div class="mbw-container" *ngIf="hasMetric()">
   <div class="mbw-metric">{{metric}}</div>
   <div class="mbw-dimension">{{dimension}}</div>
   <div class="mbw-message">{{message}}</div>
-  <div class="mbw-link">
+  <div class="mbw-link" *ngIf="linkName">
     <a href="{{linkAddress}}">{{linkName}}</a>
   </div>
 </div>

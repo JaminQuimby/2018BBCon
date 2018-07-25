@@ -1,7 +1,11 @@
-import { Component } from '@angular/core';
+import {
+  Component
+} from '@angular/core';
 import { ProfileModel } from './profile-model';
-import { MetricModel } from '../metric-block-widget/metric-block-widget';
-
+import { MetricModel } from '../metric-block-widget/metric-block-widget.model';
+import { VolunteerBlockService } from '../../blockchain/volunteer.block.service';
+import { DonationBlockService } from '../../blockchain/donation.block.service';
+import { BlockchainService } from '../../blockchain/blockchain.service';
 import { Container } from '../database.service';
 import {
   SkyModalService,
@@ -9,6 +13,8 @@ import {
 } from '@blackbaud/skyux/dist/core';
 import { ProfileFormContext } from './profile-form.context';
 import { ProfileFormComponent } from './profile-form.component';
+import { DatabaseService } from '../database.service';
+import 'rxjs/add/observable/from';
 
 @Component({
   selector: 'demo-profile',
@@ -17,24 +23,50 @@ import { ProfileFormComponent } from './profile-form.component';
 })
 
 export class ProfileComponent {
-  @Container(`users`, sessionStorage.getItem('uid'))
-  private profile: ProfileModel[];
 
-  constructor(private modal: SkyModalService) { }
-  public get metricModel(): MetricModel {
+  @Container(`users`, '$uid$')
+  private profile: ProfileModel[] = [new ProfileModel];
+
+  private volunteer: MetricModel = new MetricModel();
+  private donation: MetricModel = new MetricModel();
+
+  constructor(
+    private db: DatabaseService,
+    private modal: SkyModalService,
+    private blockchainService: BlockchainService,
+    private volunteerService: VolunteerBlockService,
+    private donationService: DonationBlockService
+  ) {
+    this.donationService.block$.subscribe((block) => {
+      this.donation.metric = block.metric;
+      this.donation.dimension = block.dimension;
+    });
+    this.volunteerService.block$.subscribe((block) => {
+      this.volunteer.metric = block.metric;
+      this.volunteer.dimension = block.dimension;
+    });
+  }
+
+  public get displayName() { return this.profile[0].displayName; }
+  public get email() { return this.profile[0].email; }
+  public get photoURL() { return this.profile[0].photoURL; }
+  public get volunteerModel(): MetricModel {
     return {
-      metric: '100',
-      metricPrefix: '$',
-      dimension: 'dollars',
-      message: 'to your cause',
-      linkName: 'next events',
-      linkAddress: '#'
-
+      metric: this.volunteer.metric,
+      metricPrefix: '',
+      dimension: this.blockchainService.hexToString(this.volunteer.dimension),
+      message: 'of service'
     };
   }
-  public get displayName() { return this.profile[0] && this.profile[0].displayName; }
-  public get email() { return this.profile[0] && this.profile[0].email; }
-  public get photoURL() { return this.profile[0] && this.profile[0].photoURL; }
+
+  public get donationModel(): MetricModel {
+    return {
+      metric: this.donation.metric,
+      metricPrefix: '',
+      dimension: this.blockchainService.hexToString(this.donation.dimension),
+      message: 'in donations'
+    };
+  }
 
   public openModal(type: string) {
     const context = new ProfileFormContext();

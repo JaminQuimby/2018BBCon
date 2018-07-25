@@ -15,4 +15,8 @@ export class MetricBlockWidgetComponent {
   public get message() { return this.metricModel.message; }
   public get metric() { return this.metricModel.metric; }
   public get metricPrefix() { return this.metricModel.metricPrefix; }
+  public hasMetric() {
+    if (this.metric >= 1) { return true; }
+    return false;
+  }
 }

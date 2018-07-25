@@ -5,7 +5,7 @@
 
     "users": {
       "$userId": {
-        
+
         "profile": {
           ".read": "(auth != null) && ($userId === auth.uid)",
           ".write": "(auth != null) && ($userId === auth.uid)"
@@ -13,9 +13,9 @@
 
         "organization" : {
             ".read" : "(auth != null) && ($userId === auth.uid)",
-            ".write" : false  // <--- NOTE THIS
+            ".write" : false
         }
-        
+
       }
     },
 
@@ -31,7 +31,7 @@
           ".read": "root.child('users').child(auth.uid).child('organization').hasChildren([$organization])",
           ".write": "root.child('users').child(auth.uid).child('organization').child($organization).child('role').val() === 5"
         },
-          
+
         "staff": {
           "$staffId": {
             ".read": "root.child('users').child(auth.uid).child('organization').child($organization).child('role').val() === 5",

@@ -1,0 +1,21 @@
+<div class="social-good-project">
+
+  <div class="social-good-banner" [style.background-image]="background">
+    <h2>{{organization}}</h2>
+  </div>
+  <div class="social-good-join-button">
+    <button type="button" class="social-good-join-button sky-btn sky-btn-default fa fa-users"></button>
+    <span>{{action}}</span>
+  </div>
+  <div class="social-good-cards">
+    <sky-card size="small" [selectable]="showCheckbox">
+      <sky-card-title>{{title}}</sky-card-title>
+      <sky-card-content>
+        {{description}}
+      </sky-card-content>
+      <sky-card-actions>
+        <a href="{{link}}">more info</a>
+      </sky-card-actions>
+    </sky-card>
+  </div>
+</div>

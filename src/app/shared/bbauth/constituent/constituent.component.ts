@@ -10,7 +10,7 @@ import { BBSessionService } from '../bbsession.service';
 export class ConstituentComponent implements OnInit {
   private constituentId: number = 1098;
   public constituent: any;
-  public gift: any;
+  public volunteer: any;
 
   constructor(
     private constituentService: ConstituentService,
@@ -19,7 +19,7 @@ export class ConstituentComponent implements OnInit {
 
   public async getData() {
     this.constituent = await this.constituentService.getById(this.constituentId);
-    this.gift = await this.constituentService.getLatestGift(this.constituentId);
+    this.volunteer = await this.constituentService.getLatestVolunteer(this.constituentId);
   }
 
   public ngOnInit(): void {
