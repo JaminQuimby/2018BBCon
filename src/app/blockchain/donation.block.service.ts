@@ -37,7 +37,7 @@ export class DonationBlockService {
     this.contract = await this.blockchainService.getContract('Donation').toPromise();
     const count = await this.contract.methods.getUserCount().call();
     if (parseInt(count, 10) <= 0) {
-      console.warn('there are no donations');
+      console.warn('there are no donations, reset MetaMask');
       this.setDonationBlock({ dimension: 'dollars', metric: 1 });
     } else {
       this.donation = await this.contract.methods.getDonation(this.account).call({ 'from': this.account });

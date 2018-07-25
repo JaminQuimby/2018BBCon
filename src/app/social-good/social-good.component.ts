@@ -15,10 +15,10 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SocialGoodComponent {
-  // @Container(`users/$uid$/social-good`)
+  @Container(`users/$uid$/social-good`)
   public socialGood: SocialGoodContext | SocialGoodContext[];
 
-  constructor(private modal: SkyModalService) {  }
+  constructor(private modal: SkyModalService) { }
 
   public somePlace() {
     const socialGood = {

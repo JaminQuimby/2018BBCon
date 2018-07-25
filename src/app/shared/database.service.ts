@@ -96,6 +96,8 @@ export function Container(collection: string, docRef?: string): PropertyDecorato
       'ngOnDestroy'
     ];
     let databaseService: DatabaseService;
+    let angularFirestore: AngularFirestore;
+    let authService: AuthService;
     HOOKS.forEach((hook) => {
       if (hook === 'ngOnInit') {
         const selfOnInit = constructor.prototype[hook];
@@ -113,7 +115,14 @@ export function Container(collection: string, docRef?: string): PropertyDecorato
         });
 
         constructor.prototype[hook] = (...args: Array<any>) => {
-          databaseService = AppExtrasModule.injector.get(DatabaseService);
+          angularFirestore = AppExtrasModule.injector.get(AngularFirestore);
+          authService = AppExtrasModule.injector.get(AuthService);
+          const service = ReflectiveInjector.resolveAndCreate([
+            DatabaseService,
+            { provide: AngularFirestore, useFactory: () => angularFirestore },
+            { provide: AuthService, useFactory: () => authService }
+          ]);
+          databaseService = service.get(DatabaseService);
           databaseService.bootstrap(collection, docRef);
           databaseService.database$.distinctUntilChanged().subscribe((model) => {
             if (model) {
