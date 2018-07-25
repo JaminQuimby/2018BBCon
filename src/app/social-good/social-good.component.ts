@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { SocialGoodContext } from './social-good.context';
 import { SocialGoodFormComponent } from './social-good-form.component';
 import { Container } from '../shared/database.service';
@@ -11,8 +11,7 @@ import {
 @Component({
   selector: 'demo-social-good',
   templateUrl: './social-good.component.html',
-  styleUrls: ['./social-good.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./social-good.component.scss']
 })
 export class SocialGoodComponent {
   @Container(`users/$uid$/social-good`)
@@ -22,11 +21,45 @@ export class SocialGoodComponent {
 
   public somePlace() {
     const socialGood = {
-      action: 'click me',
-      background: '~assets/images/hands.png',
-      description: 'my description',
-      link: '#',
-      organization: 'Good Org',
+      id: 'E19JFkaIL9nIpvoXgDbr',
+      actions: [{
+        id: 0,
+        icon: 'fa-users',
+        link: '#',
+        linkName: 'volunteer'
+      }, {
+        id: 1,
+        icon: 'fa-gift',
+        link: '#',
+        linkName: 'bones'
+      }],
+      tiles: [{
+        id: 0,
+        description: 'Bark, bark, bark! Biscuits are important, the most beneficial treat of the day. Please send us biscuits. Weeee.',
+        link: '#',
+        linkName: 'give a dog a biscuit',
+        title: 'Bark! low on biscuits!'
+      },
+      {
+        id: 1,
+        description: `Do you like dogs? Drop by the shelter at any time to walk a furry friend.
+        What better way to spend a lunch then with a snack and exersize.`,
+        link: '#',
+        linkName: 'volunteer',
+        title: 'Dog walkers needed.'
+      }, {
+        id: 2,
+        gauge: {
+          label: '2018 Walk-a-thon',
+          type: 'arch',
+          value: 432,
+          append: 'miles'
+        },
+        link: '#',
+        linkName: 'join us',
+        title: '2018 Walk-a-thon!'
+      }],
+      organization: 'give a dog a biscuit. org',
       title: 'My title'
     };
     this.socialGood = socialGood;

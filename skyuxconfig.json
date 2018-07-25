@@ -6,8 +6,8 @@
     "blockchain": {
       "provider": "http://localhost:7545",
       "contracts": {
-        "donation": "0x100168b4323036253dc0ba9f67a7a6d801b32e9a",
-        "volunteer": "0x0399720fef6f38ef34952e48d95caba870f93c9a",
+        "donation": "0x41e6afe8d31c3f64e2f72b18b0f7602a676d8327",
+        "volunteer": "0x2487c2ed930de032256a97526b683456aeddb444",
         "event": ""
       }
     },

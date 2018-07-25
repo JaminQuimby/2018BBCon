@@ -16,9 +16,11 @@ import { ProfileFormComponent } from './shared/profile/profile-form.component';
 import { SocialGoodCardComponent } from './social-good/social-good-card.component';
 
 // Core
+import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgModule, Injector, ReflectiveInjector, Inject } from '@angular/core';
+import { NgModule, Injector } from '@angular/core';
 import { SkyAppBootstrapper } from '@blackbaud/skyux-builder/runtime/bootstrapper';
+import { NgxGaugeModule } from 'ngx-gauge';
 
 // Blackbaud Integration
 import { BBHomeComponent } from './shared/bbauth/home/home.component';
@@ -66,7 +68,9 @@ const modules = [
   AngularFireModule.initializeApp(environment.firebase),
   AngularFirestoreModule,
   FormsModule,
-  ReactiveFormsModule
+  ReactiveFormsModule,
+  BrowserModule,
+  NgxGaugeModule
 ];
 
 const components = [
@@ -82,7 +86,7 @@ const components = [
 
 @NgModule({
   entryComponents: components,
-  exports: [],
+  exports: [NgxGaugeModule],
   imports: modules,
   providers: services
 })

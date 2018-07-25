@@ -3,19 +3,33 @@
   <div class="social-good-banner" [style.background-image]="background">
     <h2>{{organization}}</h2>
   </div>
-  <div class="social-good-join-button">
-    <button type="button" class="social-good-join-button sky-btn sky-btn-default fa fa-users"></button>
-    <span>{{action}}</span>
+  <div class="social-good-action-button">
+    <div *ngFor="let action of actions">
+      <button type="button" class="social-good-action-button sky-btn sky-btn-default fa {{action.icon}}"></button>
+      <div class="social-good-action-linkName">{{action.linkName}}</div>
+    </div>
   </div>
   <div class="social-good-cards">
-    <sky-card size="small" [selectable]="showCheckbox">
-      <sky-card-title>{{title}}</sky-card-title>
-      <sky-card-content>
-        {{description}}
-      </sky-card-content>
-      <sky-card-actions>
-        <a href="{{link}}">more info</a>
-      </sky-card-actions>
-    </sky-card>
+
+    <span *ngFor="let tile of tiles">
+      <sky-card size="small" [selectable]="showCheckbox">
+        <sky-card-title>{{tile.title}}</sky-card-title>
+        <sky-card-content>
+          <span *ngIf="tile.description">{{tile.description}}</span>
+          <span *ngIf="tile.gauge">
+            <ngx-gauge
+            max='800'
+            thick='6'
+            [type]="tile.gauge.type"
+            [value]="tile.gauge.value"
+            [label]="tile.gauge.label"
+            [append]="tile.gauge.append"></ngx-gauge>
+          </span>
+        </sky-card-content>
+        <sky-card-actions>
+          <a href="{{tile.link}}">{{tile.linkName}}</a>
+        </sky-card-actions>
+      </sky-card>
+    </span>
   </div>
 </div>

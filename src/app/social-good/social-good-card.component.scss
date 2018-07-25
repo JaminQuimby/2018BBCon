@@ -14,7 +14,7 @@
   font-weight: bold;
 }
 
-.social-good-join-button {
+.social-good-action-button {
   margin-top: auto;
   margin-bottom: auto;
   padding: 10px;
@@ -22,7 +22,11 @@
   display: block;
 }
 
-.social-good-join-button button {
+.social-good-action-linkName {
+  text-align: center;
+}
+
+.social-good-action-button button {
   border-radius: 50%;
   padding: 15px;
   border: 1px solid #0973B2;

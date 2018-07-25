@@ -12,10 +12,12 @@ export class SocialGoodCardComponent {
   constructor() { }
 
   public get organization() { return this.socialGoodCard.organization; }
+  public get tiles() { return this.socialGoodCard.tiles; }
+  public get actions() { return this.socialGoodCard.actions; }
   public get background() { return `url(${this.socialGoodCard.background})`; }
   public get title() { return this.socialGoodCard.title; }
   public get description() { return this.socialGoodCard.description; }
   public get action() { return this.socialGoodCard.action; }
   public get link() { return this.socialGoodCard.link; }
-
+  public get linkName() { return this.socialGoodCard.linkName; }
 }

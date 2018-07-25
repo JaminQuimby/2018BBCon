@@ -137,7 +137,9 @@ export function Container(collection: string, docRef?: string): PropertyDecorato
                 set: (newData) => {
                   console.log('setter', newData);
                   databaseService.save(newData);
-                  // databaseService.database$.next(newData);
+                  const current = databaseService.database$.getValue();
+                  const next = { ...current.find(obj => obj.id === newData.id), newData };
+                  databaseService.database$.next(next);
                 }
               });
 
