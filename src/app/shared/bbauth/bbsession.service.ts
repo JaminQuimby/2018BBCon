@@ -24,8 +24,9 @@ export class BBSessionService {
 
   public login(): void {
     this.setToken();
-    const oAuthUrl = 'https://oauth2.sky.blackbaud.com/authorization/';
-    const clientId = this.settingsService.get('SkyApiAppId');
+    const oAuthUrl = 'https://oauth2.sky.blackbaud.com/authorization';
+    const appId = this.settingsService.get('SkyApiAppId');
+    let clientId = appId.toString().toUpperCase();
     const redirectUrl = this.settingsService.get('AuthRedirectUri');
 
     window.location.href =

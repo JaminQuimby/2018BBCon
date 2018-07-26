@@ -30,7 +30,7 @@ export class GaugeBlockWidgetComponent {
       this._blocks.push(donation);
     });
 
-    Observable.timer(2000, 10000).take(2)
+    Observable.timer(900, 10000).take(2)
       .subscribe(() => this.cd.detectChanges());
   }
 

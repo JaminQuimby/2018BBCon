@@ -1,0 +1,43 @@
+.title-bar-form-container {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.title-bar-form-title-bar-info {
+  height: 160px;
+  background-color: white;
+  padding: 25px;
+  display: flex;
+  flex: 1;
+}
+
+.title-bar-form-widgets {
+  background-color: white;
+  padding: 5px;
+  display: flex;
+  flex: 1;
+  max-width: 150px;
+  justify-content: flex-end;
+}
+
+.title-bar-form-name-block {
+  flex: auto
+}
+
+.title-bar-form-avatar {
+  flex: none;
+  margin-right: 35px;
+}
+
+.title-bar-form-display-name {
+  font-weight: bold;
+  font-size: 26px;
+  line-height: 1.5;
+}
+
+// .title-bar-form-email {}
+.title-bar-form-edit-title-bar {
+  margin-top: 15px;
+  font-weight: bold;
+}

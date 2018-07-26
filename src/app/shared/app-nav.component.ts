@@ -12,8 +12,8 @@ export class AppNavComponent {
       path: '/'
     },
     {
-      name: 'Philanthropy',
-      path: '/donate'
+      name: 'Give me a biscuit',
+      path: '/dashboard'
     }
   ];
 }

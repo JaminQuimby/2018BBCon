@@ -1,0 +1,21 @@
+<div class="title-bar-form-container">
+  <div class="title-bar-form-title-bar-info">
+    <div class="title-bar-form-avatar">
+      <sky-avatar [name]="displayName" [src]="photoURL" class="title-bar-center-all">
+      </sky-avatar>
+    </div>
+    <div class="title-bar-form-name-block">
+      <div class="title-bar-form-display-name"> {{displayName}}</div>
+      <div class="title-bar-form-email"> {{email}}</div>
+
+      <div class="title-bar-form-edit-title-bar">
+        <a (click)="openModal()">View/edit Profile</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="title-bar-form-widgets">
+
+  </div>
+</div>
+

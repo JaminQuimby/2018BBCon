@@ -29,6 +29,8 @@ import { NgxGaugeModule } from 'ngx-gauge';
 import { BBHomeComponent } from './shared/bbauth/home/home.component';
 import { BBSessionService } from './shared/bbauth/bbsession.service';
 import { BBSettingsService } from './shared/bbauth/bbsettings.service';
+import { TitleBarComponent } from './dashboard/title-bar/title-bar.component';
+import { ReNxtComponent } from './dashboard/renxt/renxt.component';
 
 // Blockchain Intergration
 import { BlockchainService } from './blockchain/blockchain.service';
@@ -86,7 +88,9 @@ const components = [
   GaugeBlockWidgetComponent,
   AchievementBlockWidgetComponent,
   ProfileComponent,
-  ProfileFormComponent
+  ProfileFormComponent,
+  TitleBarComponent,
+  ReNxtComponent
 ];
 
 @NgModule({
