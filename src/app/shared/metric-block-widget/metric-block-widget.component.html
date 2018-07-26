@@ -1,13 +1,11 @@
-<div class="mbw-container" >
-
-  <div *ngFor="let metric of metrics">
-  <div class="mbw-metric">{{metric.metric}}</div>
-  <div class="mbw-dimension">{{metric.dimension}}</div>
-  <div class="mbw-message">{{metric.message}}</div>
-  <div class="mbw-link" *ngIf="metric.linkName">
-    <a href="{{metric.linkAddress}}">{{metric.linkName}}</a>
+<div class="mbw-container">
+  <div class="mbw-container-block" *ngFor="let block of blocks">
+    <div class="mbw-metric">{{block.metric}}</div>
+    <div class="mbw-dimension">{{block.dimension}}</div>
+    <div class="mbw-message">{{block.message}}</div>
+    <div class="mbw-link" *ngIf="block.linkName">
+      <a href="{{block.linkAddress}}">{{block.linkName}}</a>
+    </div>
   </div>
-</div>
 
 </div>
-

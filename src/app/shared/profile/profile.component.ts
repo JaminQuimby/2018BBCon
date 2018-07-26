@@ -20,11 +20,7 @@ export class ProfileComponent {
   @Container(`users`, '$uid$')
   private profile: ProfileModel[] = [new ProfileModel];
 
-  constructor(
-    private modal: SkyModalService
-  ) {
-
-  }
+  constructor(private modal: SkyModalService) { }
 
   public get displayName() { return this.profile[0].displayName; }
   public get email() { return this.profile[0].email; }

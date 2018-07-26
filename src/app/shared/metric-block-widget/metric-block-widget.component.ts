@@ -9,7 +9,7 @@ import { DonationBlockService } from '../../blockchain/donation.block.service';
   styleUrls: ['./metric-block-widget.component.scss']
 })
 export class MetricBlockWidgetComponent implements OnInit {
-  public metrics: MetricModel[] = [];
+  public blocks: MetricModel[] = [];
 
   constructor(
     private volunteerService: VolunteerBlockService,
@@ -17,7 +17,7 @@ export class MetricBlockWidgetComponent implements OnInit {
 
   }
   public ngOnInit() {
-    this.volunteerService.volunteer.subscribe((volunteer) => { this.metrics.push(volunteer); });
-    this.donationService.donation.subscribe((donation) => { this.metrics.push(donation); });
+    this.volunteerService.volunteer.subscribe((volunteer) => { this.blocks.push(volunteer); });
+    this.donationService.donation.subscribe((donation) => { this.blocks.push(donation); });
   }
 }

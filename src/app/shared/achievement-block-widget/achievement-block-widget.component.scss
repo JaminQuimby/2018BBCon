@@ -1,11 +1,15 @@
 .abw-container {
-  width: 150px;
-  height: 150px;
+  display: flex;
+  flex-direction: row;
+}
+
+.abw-container-block{
   border-left: 1px dotted #ccc;
   justify-content: center;
-  padding-left: 6px;
-  overflow: hidden;
+  width: 150px;
+  height: 150px;
 }
+
 
 .abw-share-button {
   position: relative;
@@ -14,9 +18,11 @@
 }
 
 .abw-share-image {
+  background-position: top;
+  background-repeat: no-repeat;
   width: 150px;
   height: 150px;
-  background-size: 150px 150px;
+  background-size: 70px;
 }
 
 .abw-metric {
@@ -26,6 +32,8 @@
   font-family: "Blackbaud Sans Condensed", "Helvetica Neue Condensed", "Arial Narrow";
   font-weight: 500;
   text-align: center;
+  padding-top: 80px;
+  line-height: 35px;
 }
 
 .abw-dimension {

@@ -41,6 +41,7 @@ export class DonationBlockService {
       let getDonation = await this.contract.methods.getDonation(this.account).call({ 'from': this.account });
       getDonation.dimension = this.blockchainService.hexToString(getDonation.dimension);
       console.log('testing await donation', getDonation, 'contract', this.contract);
+      getDonation.message = 'more info';
       this.donation.next(getDonation);
     }
   }
