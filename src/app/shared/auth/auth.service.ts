@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import * as firebase from 'firebase';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { ProfileModel } from '../profile/profile-model';
 import { AuthUserModel } from './auth.model';
@@ -10,7 +10,7 @@ import { AuthUserModel } from './auth.model';
 @Injectable()
 export class AuthService {
   private user: Observable<firebase.User>;
-  public user$: ReplaySubject<AuthUserModel> = new ReplaySubject(1);
+  public user$: BehaviorSubject<AuthUserModel> = new BehaviorSubject(undefined);
 
   constructor(
     private firebaseAuth: AngularFireAuth,

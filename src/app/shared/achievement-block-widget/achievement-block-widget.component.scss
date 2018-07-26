@@ -1,0 +1,37 @@
+.abw-container {
+  width: 150px;
+  height: 150px;
+  border-left: 1px dotted #ccc;
+  justify-content: center;
+  padding-left: 6px;
+  overflow: hidden;
+}
+
+.abw-share-button {
+  position: relative;
+  bottom: 25px;
+  text-align: center;
+}
+
+.abw-share-image {
+  width: 150px;
+  height: 150px;
+  background-size: 150px 150px;
+}
+
+.abw-metric {
+  font-size: 55px;
+  color: #0B74B2;
+  font-weight: bold;
+  font-family: "Blackbaud Sans Condensed", "Helvetica Neue Condensed", "Arial Narrow";
+  font-weight: 500;
+  text-align: center;
+}
+
+.abw-dimension {
+  font-weight: 400;
+  font-size: 25px;
+  color: #282b31;
+  font-family: "Blackbaud Sans Condensed", "Helvetica Neue Condensed", "Arial Narrow";
+  text-align: center;
+}

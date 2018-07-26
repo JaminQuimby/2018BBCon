@@ -1,9 +1,6 @@
-import {
-  Component
-} from '@angular/core';
+import { Component } from '@angular/core';
 import { ProfileModel } from './profile-model';
 import { MetricModel } from '../metric-block-widget/metric-block-widget.model';
-import { GaugeModel } from '../gauge-block-widget/gauge-block-widget.model';
 import { VolunteerBlockService } from '../../blockchain/volunteer.block.service';
 import { DonationBlockService } from '../../blockchain/donation.block.service';
 import { BlockchainService } from '../../blockchain/blockchain.service';
@@ -14,7 +11,6 @@ import {
 } from '@blackbaud/skyux/dist/core';
 import { ProfileFormContext } from './profile-form.context';
 import { ProfileFormComponent } from './profile-form.component';
-import { DatabaseService } from '../database.service';
 import 'rxjs/add/observable/from';
 
 @Component({
@@ -32,19 +28,20 @@ export class ProfileComponent {
   private donation: MetricModel = new MetricModel();
 
   constructor(
-    private db: DatabaseService,
     private modal: SkyModalService,
     private blockchainService: BlockchainService,
     private volunteerService: VolunteerBlockService,
     private donationService: DonationBlockService
   ) {
     this.donationService.block$.subscribe((block) => {
+      console.log('donation service tick');
       this.donation.metric = block.metric;
-      this.donation.dimension = block.dimension;
+      this.donation.dimension = this.blockchainService.hexToString(block.dimension);
     });
     this.volunteerService.block$.subscribe((block) => {
+      console.log('volunteer service tick');
       this.volunteer.metric = block.metric;
-      this.volunteer.dimension = block.dimension;
+      this.volunteer.dimension = this.blockchainService.hexToString(block.dimension);
     });
   }
 
@@ -52,32 +49,21 @@ export class ProfileComponent {
   public get email() { return this.profile[0].email; }
   public get photoURL() { return this.profile[0].photoURL; }
 
-  public get goalModel(): GaugeModel {
-    return {
-      ...new GaugeModel(), ...{
-        max: 40,
-        value: this.volunteer.metric,
-        append: 'hours',
-        label: 'graduation'
-      }
-    };
-  }
-  public get volunteerModel(): MetricModel {
-    return {
+  public get metricModel(): MetricModel[] {
+
+    const metric = [{
       metric: this.volunteer.metric,
       metricPrefix: '',
-      dimension: this.blockchainService.hexToString(this.volunteer.dimension),
+      dimension: this.volunteer.dimension,
       message: 'of service'
-    };
-  }
-
-  public get donationModel(): MetricModel {
-    return {
+    }, {
       metric: this.donation.metric,
       metricPrefix: '',
-      dimension: this.blockchainService.hexToString(this.donation.dimension),
+      dimension: this.donation.dimension,
       message: 'in donations'
-    };
+    }];
+
+    return metric;
   }
 
   public openModal(type: string) {

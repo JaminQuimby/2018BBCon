@@ -1,0 +1,8 @@
+<div class="abw-container">
+  <div *ngFor="let achievement of achievements">
+    <div class="abw-share-image" [style.background-image]="background(achievement.image)"></div>
+    <div class="abw-metric">{{achievement.metric}}</div>
+    <div class="abw-dimension">{{achievement.dimension}}</div>
+  </div>
+
+</div>

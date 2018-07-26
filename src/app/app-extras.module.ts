@@ -12,6 +12,8 @@ import { SocialGoodFormComponent } from './social-good/social-good-form.componen
 import { LoginModalComponent } from './shared/login/login-modal.component';
 import { MetricBlockWidgetComponent } from './shared/metric-block-widget/metric-block-widget.component';
 import { GaugeBlockWidgetComponent } from './shared/gauge-block-widget/gauge-block-widget.component';
+import { AchievementBlockWidgetComponent } from './shared/achievement-block-widget/achievement-block-widget.component';
+
 import { ProfileComponent } from './shared/profile/profile.component';
 import { ProfileFormComponent } from './shared/profile/profile-form.component';
 import { SocialGoodCardComponent } from './social-good/social-good-card.component';
@@ -82,6 +84,7 @@ const components = [
   LoginModalComponent,
   MetricBlockWidgetComponent,
   GaugeBlockWidgetComponent,
+  AchievementBlockWidgetComponent,
   ProfileComponent,
   ProfileFormComponent
 ];

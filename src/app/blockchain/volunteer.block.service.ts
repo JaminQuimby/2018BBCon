@@ -32,23 +32,27 @@ export class VolunteerBlockService {
       });
   }
 
-  private async bootstrap() {
-    this.account = await this.blockchainService.getAccount();
-    this.contract = await this.blockchainService.getContract('Volunteer').toPromise();
-    const count = await this.contract.methods.getUserCount().call();
-    if (parseInt(count, 10) <= 0) {
-      console.warn('there are no volunteers reset MetaMask');
-      this.setVolunteerBlock({ dimension: 'hours', metric: 1 });
-    } else {
-      // this.setVolunteerBlock({ dimension: 'hours', metric: 30 });
-      this.volunteer = await this.contract.methods.getVolunteer(this.account).call({ 'from': this.account });
-      console.log('testing await volunteers', this.volunteer, 'contract', this.contract);
-    }
-    const block = {
-      ...{ dimension: '', metric: 0 },
-      ...this.volunteer
-    };
-    this.block$.next(block);
+  private bootstrap() {
+    this.account = this.blockchainService.account$.take(2).subscribe(async (account) => {
+      this.account = account;
+      if (account) {
+        this.contract = await this.blockchainService.getContract('Volunteer').toPromise();
+        const count = await this.contract.methods.getUserCount().call();
+        if (parseInt(count, 10) <= 0) {
+          console.warn('there are no volunteers reset MetaMask');
+          this.setVolunteerBlock({ dimension: 'hours', metric: 1 });
+        } else {
+          // this.setVolunteerBlock({ dimension: 'hours', metric: 30 });
+          this.volunteer = await this.contract.methods.getVolunteer(this.account).call({ 'from': this.account });
+          console.log('testing await volunteers', this.volunteer, 'contract', this.contract);
+        }
+        const block = {
+          ...{ dimension: '', metric: 0 },
+          ...this.volunteer
+        };
+        this.block$.next(block);
+      }
+    });
   }
 
 }

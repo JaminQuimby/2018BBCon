@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { AppExtrasModule } from '../app-extras.module';
 import { AuthService } from './auth/auth.service';
 import { AngularFireAuth } from 'angularfire2/auth';
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class DatabaseService {
@@ -20,42 +21,42 @@ export class DatabaseService {
   }
 
   public bootstrap(collection: string, docRef?: string) {
-
     this.auth.user$.distinctUntilChanged().subscribe((user) => {
-      collection = collection && collection.replace('$uid$', user.uid);
-      docRef = docRef && docRef.replace('$uid$', user.uid);
-      console.log('collection', collection, 'docRef', docRef);
-      this.uid = user.uid;
-      this.collection = collection;
-      this.docRef = docRef;
+      if (user) {
+        console.log('bootstrap user', user);
+        collection = collection && collection.replace('$uid$', user.uid);
+        docRef = docRef && docRef.replace('$uid$', user.uid);
+        console.log('collection', collection, 'docRef', docRef);
+        this.uid = user.uid;
+        this.collection = collection;
+        this.docRef = docRef;
 
-      console.log('init', this.uid);
+        console.log('init', this.uid);
 
-      console.log('bootstrap', this.collection, this.docRef);
-      if (this.collection) {
+        console.log('bootstrap', this.collection, this.docRef);
+        if (this.collection) {
 
-        this.databasesCollection = this.db.collection(`/${this.collection}/`);
-        if (this.docRef) {
-          this.databaseDocument = this.databasesCollection.doc(this.docRef);
-          this.databaseDocument.snapshotChanges().map(action => {
-            const data = action.payload.data();
-            const id = action.payload.id;
-            return { id, ...data };
-          }).subscribe((data) => (data.id && this.updateView([data])));
-        } else {
-          this.databasesCollection.snapshotChanges().map(actions => {
-            return actions.map(action => {
-              const data = action.payload.doc.data();
-              const id = action.payload.doc.id;
+          this.databasesCollection = this.db.collection(`/${this.collection}/`);
+          if (this.docRef) {
+            this.databaseDocument = this.databasesCollection.doc(this.docRef);
+            this.databaseDocument.snapshotChanges().map(action => {
+              const data = action.payload.data();
+              const id = action.payload.id;
               return { id, ...data };
-            });
-          }).subscribe((data) => (data.length > 0 && this.updateView(data)));
+            }).subscribe((data) => (data.id && this.updateView([data])));
+          } else {
+            this.databasesCollection.snapshotChanges().map(actions => {
+              return actions.map(action => {
+                const data = action.payload.doc.data();
+                const id = action.payload.doc.id;
+                return { id, ...data };
+              });
+            }).subscribe((data) => (data.length > 0 && this.updateView(data)));
+          }
+
         }
-
       }
-
     });
-
   }
 
   public database() {
@@ -132,7 +133,7 @@ export function Container(collection: string, docRef?: string): PropertyDecorato
                 configurable: true,
                 enumerable: true,
                 get: () => {
-                  return Array.isArray(model) ? model : [model];
+                  return initData;
                 },
                 set: (newData) => {
                   console.log('setter', newData);

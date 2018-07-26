@@ -12,26 +12,23 @@
   <div class="social-good-cards">
 
     <span *ngFor="let tile of tiles">
-      <sky-card size="small" [selectable]="showCheckbox">
-        <sky-card-title><div class="social-good-title">{{tile.title}}</div></sky-card-title>
-        <sky-card-content>
-          <span *ngIf="tile.description">{{tile.description}}</span>
-          <span *ngIf="tile.gauge">
-            <ngx-gauge
-            [max]='tile.gauge.max'
-            [min]='tile.gauge.min'
-            thick='12'
-            cap="round"
-            [type]="tile.gauge.type"
-            [value]="tile.gauge.value"
-            [label]="tile.gauge.label"
-            [append]="tile.gauge.append"></ngx-gauge>
-          </span>
-        </sky-card-content>
-        <sky-card-actions>
-          <a href="{{tile.link}}">{{tile.linkName}}</a>
-        </sky-card-actions>
-      </sky-card>
+      <div>
+        <sky-card size="small" [selectable]="showCheckbox">
+          <sky-card-title>
+            <div class="social-good-title">{{tile.title}}</div>
+          </sky-card-title>
+          <sky-card-content>
+            <span *ngIf="tile.description">{{tile.description}}</span>
+            <span *ngIf="tile.gauge">
+              <ngx-gauge [max]='tile.gauge.max' [min]='tile.gauge.min' thick='12' cap="round" [type]="tile.gauge.type" [value]="tile.gauge.value"
+                [label]="tile.gauge.label" [append]="tile.gauge.append"></ngx-gauge>
+            </span>
+          </sky-card-content>
+          <sky-card-actions>
+            <a href="{{tile.link}}">{{tile.linkName}}</a>
+          </sky-card-actions>
+        </sky-card>
+      </div>
     </span>
   </div>
 </div>

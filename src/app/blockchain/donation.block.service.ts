@@ -33,21 +33,25 @@ export class DonationBlockService {
   }
 
   private async bootstrap() {
-    this.account = await this.blockchainService.getAccount();
-    this.contract = await this.blockchainService.getContract('Donation').toPromise();
-    const count = await this.contract.methods.getUserCount().call();
-    if (parseInt(count, 10) <= 0) {
-      console.warn('there are no donations, reset MetaMask');
-      this.setDonationBlock({ dimension: 'dollars', metric: 1 });
-    } else {
-      this.donation = await this.contract.methods.getDonation(this.account).call({ 'from': this.account });
-      console.log('testing await donation', this.donation, 'contract', this.contract);
-    }
-    const block = {
-      ...{ dimension: '', metric: 0 },
-      ...this.donation
-    };
-    this.block$.next(block);
-  }
+    this.blockchainService.account$.take(2).subscribe(async (account) => {
+      this.account = account;
+      if (account) {
+        this.contract = await this.blockchainService.getContract('Donation').toPromise();
+        const count = await this.contract.methods.getUserCount().call();
+        if (parseInt(count, 10) <= 0) {
+          console.warn('there are no donations, reset MetaMask');
+          this.setDonationBlock({ dimension: 'dollars', metric: 1 });
+        } else {
+          this.donation = await this.contract.methods.getDonation(this.account).call({ 'from': this.account });
+          console.log('testing await donation', this.donation, 'contract', this.contract);
+        }
+        const block = {
+          ...{ dimension: '', metric: 0 },
+          ...this.donation
+        };
+        this.block$.next(block);
+      }
+    });
 
+  }
 }

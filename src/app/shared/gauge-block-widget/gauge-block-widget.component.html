@@ -1,4 +1,5 @@
-<div class="gbw-container" *ngIf="gauge.value > 0">
+<div class="gbw-container">
+    <div *ngFor="let gauge of gauges">
   <ngx-gauge
   size="140"
   [max]='gauge.max'
@@ -7,8 +8,9 @@
   type="arch"
   cap="round"
   foregroundColor="rgb(11,116,178)"
-  [value]="gauge.value"
+  [value]="value(gauge.append)"
   [label]="gauge.label"
   [append]="gauge.append"></ngx-gauge>
   <div class="gbw-share-button"><a href>share goal</a></div>
+</div>
 </div>

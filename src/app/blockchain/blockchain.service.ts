@@ -6,7 +6,7 @@ import { SkyAppAssetsService } from '@blackbaud/skyux-builder/runtime';
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import * as W3 from 'web3';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 const Web3 = require('web3'); // tslint:disable-line
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/defer';
@@ -14,10 +14,9 @@ import 'rxjs/add/observable/defer';
 
 export class BlockchainService {
   private web3: W3.default;  // tslint:disable-line
-  public account$: ReplaySubject<string> = new ReplaySubject(1);
-  public balance$: ReplaySubject<number> = new ReplaySubject();
+  public account$: BehaviorSubject<string> = new BehaviorSubject(undefined);
+  public balance$: BehaviorSubject<number> = new BehaviorSubject(undefined);
   public app: any;
-  private account: string;
 
   constructor(
     private http: Http,
@@ -26,11 +25,7 @@ export class BlockchainService {
   ) {
     this.app = this.skyAppConfig.skyux.appSettings.blockchain;
     this.web3 = new Web3(Web3.givenProvider || this.app.provider);
-
-    this.getAccount().then((account) => {
-      this.getBalance(account);
-    });
-
+    this.initAccount();
   }
   public getContract(contractName: string): Observable<any> {
     const blockABI = this.assets.getUrl(`${contractName}Block.json`);
@@ -51,20 +46,6 @@ export class BlockchainService {
     });
   }
 
-  public async getAccount() {
-    if (this.account === undefined) {
-      const accountId = await this.web3.eth.getCoinbase();
-      this.account = accountId;
-      return accountId;
-    } else { return this.account; }
-  }
-
-  public async getBalance(account: string) {
-    const balance = await this.web3.eth.getBalance(account);
-    this.balance$.next(balance);
-    return balance;
-  }
-
   public hexToString(hex: any) {
     if (hex) {
       return this.web3.utils.hexToString(hex);
@@ -77,4 +58,16 @@ export class BlockchainService {
     }
     return '';
   }
+
+  private async initAccount() {
+    const account = await this.web3.eth.getCoinbase();
+    this.account$.next(account);
+  }
+
+  private async initBalance() {
+    const account = this.account$.getValue();
+    const balance = await this.web3.eth.getBalance(account);
+    this.balance$.next(balance);
+  }
+
 }

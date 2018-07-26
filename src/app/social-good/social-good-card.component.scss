@@ -45,6 +45,10 @@
 .social-good-cards {
   padding: 25px;
   padding-left: 0px;
+  overflow: auto;
+  overflow-y: hidden;
+  height: 310px;
+  display: flex;
 }
 
 .social-good-banner {
