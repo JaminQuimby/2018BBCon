@@ -1,10 +1,13 @@
 .gbw-container {
-  width: 150px;
-  height: 150px;
+  display: flex;
+  flex-direction: row;
+}
+
+.gbw-container-block{
   border-left: 1px dotted #ccc;
   justify-content: center;
-  padding-left: 6px;
-  overflow: hidden;
+  width: 150px;
+  height: 150px;
 }
 
 .gbw-share-button {

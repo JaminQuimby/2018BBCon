@@ -15,7 +15,7 @@ import 'rxjs/add/observable/timer';
 export class GaugeBlockWidgetComponent {
 
   @Container(`users/$uid$/goals`)
-  public gaugeModel: GaugeModel | GaugeModel[];
+  public gaugeModel: GaugeModel[];
   private _blocks: Array<MetricModel> = [];
 
   constructor(
@@ -30,7 +30,7 @@ export class GaugeBlockWidgetComponent {
       this._blocks.push(donation);
     });
 
-    Observable.timer(2000, 10000).take(3)
+    Observable.timer(2000, 10000).take(2)
       .subscribe(() => this.cd.detectChanges());
   }
 

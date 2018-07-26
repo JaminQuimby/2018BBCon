@@ -38,10 +38,12 @@ export class DonationBlockService {
       console.warn('there are no donations, reset MetaMask');
       this.setDonationBlock({ dimension: 'dollars', metric: 1 });
     } else {
-      let getDonation = await this.contract.methods.getDonation(this.account).call({ 'from': this.account });
+      // this.setDonationBlock({ dimension: 'dollars', metric: -438 });
+      let getDonation: MetricModel = await this.contract.methods.getDonation(this.account).call({ 'from': this.account });
       getDonation.dimension = this.blockchainService.hexToString(getDonation.dimension);
       console.log('testing await donation', getDonation, 'contract', this.contract);
-      getDonation.message = 'more info';
+      getDonation.message = 'in donations';
+      getDonation.linkName = 'more info';
       this.donation.next(getDonation);
     }
   }
