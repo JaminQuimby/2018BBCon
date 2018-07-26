@@ -14,10 +14,11 @@ import 'rxjs/add/observable/defer';
 
 export class BlockchainService {
   private web3: W3.default;  // tslint:disable-line
-  public account$: BehaviorSubject<string> = new BehaviorSubject(undefined);
+  public account: any;
+  private _balance: any;
   public balance$: BehaviorSubject<number> = new BehaviorSubject(undefined);
   public app: any;
-
+  public contracts: Array<any>;
   constructor(
     private http: Http,
     private readonly assets: SkyAppAssetsService,
@@ -25,7 +26,7 @@ export class BlockchainService {
   ) {
     this.app = this.skyAppConfig.skyux.appSettings.blockchain;
     this.web3 = new Web3(Web3.givenProvider || this.app.provider);
-    this.initAccount();
+    this.account = this._account;
   }
   public getContract(contractName: string): Observable<any> {
     const blockABI = this.assets.getUrl(`${contractName}Block.json`);
@@ -59,15 +60,18 @@ export class BlockchainService {
     return '';
   }
 
-  private async initAccount() {
-    const account = await this.web3.eth.getCoinbase();
-    this.account$.next(account);
+  private async _account() {
+    return await this.web3.eth.getCoinbase();
   }
 
-  private async initBalance() {
-    const account = this.account$.getValue();
-    const balance = await this.web3.eth.getBalance(account);
-    this.balance$.next(balance);
+  public get balance() {
+    const balance = async () => {
+      if (this._balance) {
+        return this._balance = await this.web3.eth.getBalance(this.account);
+      } else {
+        return this._balance;
+      }
+    }; return balance;
   }
 
 }

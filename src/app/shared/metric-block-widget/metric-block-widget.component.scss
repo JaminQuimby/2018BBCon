@@ -1,8 +1,14 @@
 .mbw-container {
-  width: 150px;
-  height: 150px;
+  display: flex;
+  display: flex;
+  flex-direction: row;
+}
+
+.mbw-container div:first() {
   border-left: 1px dotted #ccc;
   justify-content: center;
+  width: 150px;
+  height: 150px;
 }
 
 .mbw-metric {

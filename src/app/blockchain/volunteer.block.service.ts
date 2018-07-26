@@ -1,19 +1,17 @@
 import { BlockchainService } from './blockchain.service';
 import { VolunteerBlock } from './volunteerBlock';
 import { Injectable } from '@angular/core';
+import { MetricModel } from '../shared/metric-block-widget/metric-block-widget.model';
 import { Subject } from 'rxjs/Subject';
-
 @Injectable()
 
 export class VolunteerBlockService {
-  public block$: Subject<VolunteerBlock> = new Subject();
+
   public account: any;
   public contract: any;
-  public volunteer: any;
-
+  public volunteer: Subject<MetricModel> = new Subject();
   constructor(private blockchainService: BlockchainService) {
-    this.bootstrap();
-    //  this.setVolunteerBlock(account, { dimension: 'hours', metric: 15 });
+    this._volunteer();
   }
 
   public async setVolunteerBlock(args: VolunteerBlock) {
@@ -32,27 +30,18 @@ export class VolunteerBlockService {
       });
   }
 
-  private bootstrap() {
-    this.account = this.blockchainService.account$.take(2).subscribe(async (account) => {
-      this.account = account;
-      if (account) {
-        this.contract = await this.blockchainService.getContract('Volunteer').toPromise();
-        const count = await this.contract.methods.getUserCount().call();
-        if (parseInt(count, 10) <= 0) {
-          console.warn('there are no volunteers reset MetaMask');
-          this.setVolunteerBlock({ dimension: 'hours', metric: 1 });
-        } else {
-          // this.setVolunteerBlock({ dimension: 'hours', metric: 30 });
-          this.volunteer = await this.contract.methods.getVolunteer(this.account).call({ 'from': this.account });
-          console.log('testing await volunteers', this.volunteer, 'contract', this.contract);
-        }
-        const block = {
-          ...{ dimension: '', metric: 0 },
-          ...this.volunteer
-        };
-        this.block$.next(block);
-      }
-    });
+  public async _volunteer() {
+    this.account = await this.blockchainService.account();
+    this.contract = await this.blockchainService.getContract('Volunteer').toPromise();
+    const count = await this.contract.methods.getUserCount().call();
+    if (parseInt(count, 10) <= 0) {
+      console.warn('there are no volunteers reset MetaMask');
+      this.setVolunteerBlock({ dimension: 'hours', metric: 1 });
+    } else {
+      let getVolunteer = await this.contract.methods.getVolunteer(this.account).call({ 'from': this.account });
+      getVolunteer.dimension = this.blockchainService.hexToString(getVolunteer.dimension);
+      console.log('testing await volunteers', getVolunteer, 'contract', this.contract);
+      this.volunteer.next(getVolunteer);
+    }
   }
-
 }

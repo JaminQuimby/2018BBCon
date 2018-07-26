@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { AchievementModel } from './achievement-block-widget.model';
 import { Container } from '../database.service';
 
