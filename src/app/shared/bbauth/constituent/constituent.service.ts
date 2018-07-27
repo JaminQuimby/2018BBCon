@@ -26,6 +26,11 @@ export class ConstituentService {
     return this.constituentData(id, `${this.url}${id}/givingsummary/latest`);
   }
 
+  public async getOnlinePresenceList(id: number): Promise<any> {
+    let list = await this.constituentData(id, `${this.url}${id}/onlinepresences`);
+    return list.value;
+  }
+
   private async constituentData(id: number, url: string) {
     if (!this.sessionService.isAuthenticated()) { return this.handleError('Not Authenticated'); }
     try {

@@ -1,0 +1,26 @@
+::ng-deep .sky-card {
+  width: 90% !important;
+}
+
+.constituent-avatar-link {
+  position: relative;
+  top: -100px;
+}
+
+::ng-deep .sky-avatar-image {
+  width: 90% !important;
+}
+
+.avatar-div {
+  position: absolute;
+}
+
+.avatar-div ::ng-deep .sky-avatar-wrapper {
+  width: 30px !important;
+  height: 30px !important;
+}
+
+.avatar-div ::ng-deep .sky-avatar-image {
+  height: 29px !important;
+}
+

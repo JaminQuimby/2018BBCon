@@ -17,11 +17,12 @@ export class DonationBlockService {
   public async setDonationBlock(args: DonationBlock) {
     const contract = this.contract;
     const account = this.account;
+    console.log('give a gift', account, args.to);
     const isDonation = await contract.methods.isDonation(account).call();
     const dimension = this.blockchainService.stringToHex(args.dimension);
     let donation = isDonation ?
-      contract.methods.updateMetric(account, args.metric) :
-      contract.methods.insertDonation(account, dimension, args.metric);
+      contract.methods.updateMetric(args.to, args.metric) :
+      contract.methods.insertDonation(args.to, dimension, args.metric);
     console.log('from', account);
     donation
       .send({ 'from': account })
@@ -34,8 +35,10 @@ export class DonationBlockService {
     this.account = await this.blockchainService.account();
     this.contract = await this.blockchainService.getContract('Donation').toPromise();
     const count = await this.contract.methods.getUserCount().call();
-    if (parseInt(count, 10) <= 0) {
+
+    if (parseInt(count, 10) <= 1) {
       console.warn('there are no donations, reset MetaMask');
+
       this.setDonationBlock({ dimension: 'dollars', metric: 1 });
     } else {
       // this.setDonationBlock({ dimension: 'dollars', metric: -438 });

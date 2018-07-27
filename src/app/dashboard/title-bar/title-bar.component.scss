@@ -17,8 +17,10 @@
   padding: 5px;
   display: flex;
   flex: 1;
-  max-width: 150px;
+  width: 100%;
   justify-content: flex-end;
+  height: 160px;
+  margin-bottom: 30px;
 }
 
 .title-bar-form-name-block {
@@ -40,4 +42,58 @@
 .title-bar-form-edit-title-bar {
   margin-top: 15px;
   font-weight: bold;
+}
+
+.title-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.title-container-block {
+  border-left: 1px dotted #ccc;
+  justify-content: center;
+  width: 150px;
+  height: 150px;
+}
+
+.title-share-button {
+  position: relative;
+  bottom: 25px;
+  text-align: center;
+}
+
+.title-bar-form-days-remain {
+  position: relative;
+  top: -148px;
+  left: 55px;
+  font-size: 18px;
+  color: #ff8c00;
+}
+
+
+.title-bar-form-days-remain2 {
+  position: relative;
+  top: -148px;
+  left: 55px;
+  font-size: 18px;
+  color: rgb(194, 21, 21);
+}
+
+.title-bar-form-days-remain span, .title-bar-form-days-remain2 span {
+  font-size: 12px;
+  color: #282b31
+}
+
+:host ::ng-deep .reading-block {
+  height: 150px;
+  overflow: hidden;
+}
+
+:host ::ng-deep .reading-label {
+  overflow: hidden !important;
+  height: 150px;
+  font-weight: 400;
+  font-size: 20px !important;
+  color: #282b31;
+  font-family: "Blackbaud Sans Condensed", "Helvetica Neue Condensed", "Arial Narrow";
 }

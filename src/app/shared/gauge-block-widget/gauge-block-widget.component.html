@@ -8,7 +8,7 @@
   type="arch"
   cap="round"
   foregroundColor="rgb(11,116,178)"
-  [value]="value(gauge.append)"
+  [value]="value(gauge.append) - gauge.offset"
   [label]="gauge.label"
   [append]="gauge.append"></ngx-gauge>
   <div class="gbw-share-button"><a href>share goal</a></div>

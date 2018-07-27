@@ -1,27 +1,60 @@
-<sky-card>
-  <sky-card-title>Blackbaud Profile</sky-card-title>
-  <sky-card-content>
-    <sky-page-summary>
-      <sky-page-summary-image>
-        <sky-avatar [name]="constituent?.name"></sky-avatar>
-      </sky-page-summary-image>
-      <sky-page-summary-title>
-        {{constituent?.name}}
-      </sky-page-summary-title>
-      <sky-page-summary-subtitle>
-        <span>ID: </span>{{constituent?.id}}
-        <br/>
-        <span>Type: </span>{{ constituent?.type }}
-        <br/>
-        <span>Lookup Id: </span>{{ constituent?.lookup_id }}
-        <br/>
-      </sky-page-summary-subtitle>
-    </sky-page-summary>
+<div style="height: 40vh">
+  <sky-vertical-tabset (activeChange)="tabChanged($event)">
+    <sky-vertical-tab tabHeading="Account ledger">
+      Account ledger
+    </sky-vertical-tab>
+    <sky-vertical-tab tabHeading="Reward constituents">
+      Prof of good
+    </sky-vertical-tab>
+    <sky-vertical-tab tabHeading="Achievements &amp; Rewards" active="true">
+      <sky-card>
+        <sky-card-title>Blackbaud Profile</sky-card-title>
+        <sky-card-content>
+          <sky-page-summary>
+            <sky-page-summary-image>
+              <sky-avatar [name]="constituent?.name"></sky-avatar>
+              <div class="avatar-div">
+                <sky-avatar class="constituent-avatar-link" src="https://lh6.googleusercontent.com/-LlY096FJjp8/AAAAAAAAAAI/AAAAAAAAALg/kHSxe69u-Ro/photo.jpg"></sky-avatar>
+              </div>
+            </sky-page-summary-image>
+            <sky-page-summary-title>
+              {{constituent?.name}}
+            </sky-page-summary-title>
+            <sky-page-summary-subtitle>
+              <div style="display: inline-block">
+                <span>ID: </span>{{constituent?.id}}
+                <br/>
+                <span>Type: </span>{{ constituent?.type }}
+                <br/>
+                <span>Lookup Id: </span>{{ constituent?.lookup_id }}
+                <br/>
+              </div>
+              <div style="display: inline-block; margin-right:130px">
+                <i>{{ volunteer?.funds[0].description}}</i>
+                <br/>
+                <span>Type: </span> {{ volunteer?.type}}
+                <br/>
+                <span>Amount: $</span> {{ volunteer?.amount.value }}
+                <br/>
+              </div>
+            </sky-page-summary-subtitle>
+          </sky-page-summary>
+          <h3>Achievements</h3>
+          <div style="padding-left: 15px; padding-bottom: 5px; display: inline-block;">
+            <img height="80" width="80" src="https://i.imgur.com/htgKpyg.png">
+            <span style="position: relative;left: -85px;top: -29px;background: rgba(0, 241, 221, 0.38);font-weight: bold; color: #7f1818;">4am Coffee</span>
+          </div>
+          <div style="padding-top:20px; display: inline-block; float: right;">
+            <button class="sky-btn sky-btn-secondary" (click)="logVolnteerHours()">Log volunteer hours</button>
+            <button class="sky-btn sky-btn-secondary">Give Award</button>
+            <button class="sky-btn sky-btn-secondary" (click)="giveGift()">Give Gift</button>
+            <button class="sky-btn sky-btn-primary">Sync linked profile</button>
+          </div>
+        </sky-card-content>
+      </sky-card>
 
-    <i>{{ volunteer?.funds[0].description}}</i><br/>
-    <span>Type: </span> {{ volunteer?.type}}
-    <br/>
-    <span>Amount: $</span> {{ volunteer?.amount.value }}
-    <br/>
-  </sky-card-content>
-</sky-card>
+    </sky-vertical-tab>
+    <sky-vertical-tab tabHeading="Active campaigns">
+      Active campaigns
+    </sky-vertical-tab>
+  </sky-vertical-tabset>

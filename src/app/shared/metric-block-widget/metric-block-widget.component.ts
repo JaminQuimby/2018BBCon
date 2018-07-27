@@ -16,8 +16,19 @@ export class MetricBlockWidgetComponent implements OnInit {
     private donationService: DonationBlockService) {
 
   }
+
   public ngOnInit() {
-    this.volunteerService.volunteer.subscribe((volunteer) => { this.blocks.push(volunteer); });
-    this.donationService.donation.subscribe((donation) => { this.blocks.push(donation); });
+    this.volunteerService.volunteer.subscribe((volunteer) => {
+      console.log(volunteer);
+      const type = 'hours';
+      let filter = this.blocks.filter((block) => { return block.dimension !== type; });
+      this.blocks = filter;
+      this.blocks.push(volunteer);
+      console.log('update metric hours');
+    });
+    this.donationService.donation.subscribe((donation) => {
+      console.log(donation);
+      this.blocks.push(donation);
+    });
   }
 }

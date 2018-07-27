@@ -3,6 +3,8 @@ import { VolunteerBlock } from './volunteerBlock';
 import { Injectable } from '@angular/core';
 import { MetricModel } from '../shared/metric-block-widget/metric-block-widget.model';
 import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/timer';
 @Injectable()
 
 export class VolunteerBlockService {
@@ -12,16 +14,19 @@ export class VolunteerBlockService {
   public volunteer: Subject<MetricModel> = new Subject();
   constructor(private blockchainService: BlockchainService) {
     this._volunteer();
+    Observable.timer(10000, 10000)
+      .subscribe(() => this._volunteer());
   }
 
   public async setVolunteerBlock(args: VolunteerBlock) {
     const contract = this.contract;
     const account = this.account;
+    console.log('give hours', account, args.to);
     const isVolunteer = await this.contract.methods.isVolunteer(account).call();
     const dimension = this.blockchainService.stringToHex(args.dimension);
     let hours = isVolunteer ?
-      contract.methods.updateMetric(account, args.metric) :
-      contract.methods.insertVolunteer(account, dimension, args.metric);
+      contract.methods.updateMetric(args.to, args.metric) :
+      contract.methods.insertVolunteer(args.to, dimension, args.metric);
     console.log('from', account);
     hours
       .send({ 'from': account })

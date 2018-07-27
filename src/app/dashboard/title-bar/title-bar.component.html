@@ -1,21 +1,27 @@
 <div class="title-bar-form-container">
   <div class="title-bar-form-title-bar-info">
     <div class="title-bar-form-avatar">
-      <sky-avatar [name]="displayName" [src]="photoURL" class="title-bar-center-all">
+      <sky-avatar [name]="displayName" src="https://i.imgur.com/nOZ1IFY.jpg" class="title-bar-center-all">
       </sky-avatar>
     </div>
     <div class="title-bar-form-name-block">
-      <div class="title-bar-form-display-name"> {{displayName}}</div>
-      <div class="title-bar-form-email"> {{email}}</div>
+      <div class="title-bar-form-display-name">Give me biscuit</div>
+      <div class="title-bar-form-email">barktholomew@bark.org</div>
 
       <div class="title-bar-form-edit-title-bar">
-        <a (click)="openModal()">View/edit Profile</a>
+        <a (click)="openModal()"></a>
       </div>
     </div>
   </div>
 
   <div class="title-bar-form-widgets">
-
+    <div class="gbw-container-block">
+      <ngx-gauge max='800' min='0' thick='12' cap="round" type="arch" value="432" label="2018 walk-a-thon" append="miles"></ngx-gauge>
+      <div class="title-bar-form-days-remain">{{days_between()}}<span> days remain</span></div>
+    </div>
+    <div class="gbw-container-block">
+        <ngx-gauge max='900' min='0' thick='12' cap="round" type="arch" value="825" label="volunteer hours" append="hours" foregroundColor="rgb(194, 21, 21, 1)" ></ngx-gauge>
+        <div class="title-bar-form-days-remain2">-38<span> ~ prior year</span></div>
+      </div>
   </div>
 </div>
-

@@ -4,8 +4,8 @@
   </sky-modal-header>
   <sky-modal-content>
     <div id="docs-modal-content">
-      <button (click)="login_google()" type="button">
-        <img src="https://i.imgur.com/TFNs8UW.png?1" />
+      <button (click)="login_google()" class="sky-btn sky-btn-primary" type="button">
+        Google Login
       </button>
 
       <bb-login></bb-login>
@@ -13,10 +13,10 @@
     </div>
   </sky-modal-content>
   <sky-modal-footer>
-    <button type="button" class="sky-btn sky-btn-primary" (click)="save()">
+    <button type="button" class="sky-btn sky-btn-secondary" (click)="save()">
       Close
     </button>
-    <button  type="button" class="sky-btn sky-btn-secondary" (click)="logout()">
+    <button  type="button" class="sky-btn sky-btn-link" (click)="logout()">
       Logout
     </button>
   </sky-modal-footer>
