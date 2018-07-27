@@ -16,6 +16,7 @@ export class GaugeBlockWidgetComponent {
 
   @Container(`users/$uid$/goals`)
   public gaugeModel: GaugeModel[];
+  public offline: boolean = true;
   private _blocks: Array<MetricModel> = [];
 
   constructor(
@@ -41,7 +42,11 @@ export class GaugeBlockWidgetComponent {
   public value(type: any) {
     const filter = this._blocks.filter((block) => { return block.dimension === type; });
     console.log('filter', filter[0]);
-    return filter[0].metric;
+    if (filter[0]) {
+      this.offline = false;
+      return filter[0].metric || 0;
+    }
+    return -1;
   }
 
 }

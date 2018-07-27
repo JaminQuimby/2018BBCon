@@ -41,8 +41,9 @@ export class VolunteerBlockService {
     const count = await this.contract.methods.getUserCount().call();
     if (parseInt(count, 10) <= 0) {
       console.warn('there are no volunteers reset MetaMask');
-      this.setVolunteerBlock({ dimension: 'hours', metric: 1 });
+      this.setVolunteerBlock({ to: this.account, dimension: 'hours', metric: 1 });
     } else {
+      // this.setVolunteerBlock({ to: this.account, dimension: 'dollars', metric: -13 });
       let getVolunteer: MetricModel = await this.contract.methods.getVolunteer(this.account).call({ 'from': this.account });
       getVolunteer.dimension = this.blockchainService.hexToString(getVolunteer.dimension);
       console.log('testing await volunteers', getVolunteer, 'contract', this.contract);

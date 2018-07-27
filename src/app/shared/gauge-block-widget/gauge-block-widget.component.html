@@ -1,16 +1,9 @@
 <div class="gbw-container">
-    <div *ngFor="let gauge of gauges" class="gbw-container-block">
-  <ngx-gauge
-  size="140"
-  [max]='gauge.max'
-  [min]='gauge.min'
-  thick='4'
-  type="arch"
-  cap="round"
-  foregroundColor="rgb(11,116,178)"
-  [value]="value(gauge.append) - gauge.offset"
-  [label]="gauge.label"
-  [append]="gauge.append"></ngx-gauge>
-  <div class="gbw-share-button"><a href>share goal</a></div>
-</div>
+  <div *ngFor="let gauge of gauges" class="gbw-container-block">
+    <ngx-gauge size="140" [max]='gauge.max' [min]='gauge.min' thick='4' type="arch" cap="round" foregroundColor="rgb(11,116,178)"
+      [value]="value(gauge.append) - gauge.offset" [label]="gauge.label" [append]="gauge.append"></ngx-gauge>
+    <div class="gbw-share-button">
+      <a href>share goal</a>
+    </div>
+  </div>
 </div>
